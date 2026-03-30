@@ -4,7 +4,7 @@ require_relative 'item'
 class Book < Item
   attr_accessor :title, :author, :publisher, :cover_state, :label_id
 
-  # Constructor for Book
+  # Here is my Constructor for Book
   # @param id [Integer] Unique identifier
   # @param title [String] Title of the book
   # @param author [String] Author of the book
