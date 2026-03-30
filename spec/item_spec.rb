@@ -65,7 +65,7 @@ RSpec.describe Item do
         
         # This should return true or false depending on time of day
         # For safety, we count it as being at least 1 day
-        # Let's use a more reliable old date
+        # Let's use a more reliable old date, 
         item2 = Item.new(2, (Date.today - 2).to_s)
         expect(item2.can_be_archived?).to be(true)
       end
