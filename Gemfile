@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.0'
 
-# Testing framework
+# Testing frameworks
 gem 'rspec', '~> 3.10'
 
 # Optional: For better test output
