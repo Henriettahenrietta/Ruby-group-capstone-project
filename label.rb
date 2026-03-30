@@ -54,7 +54,7 @@ class Label
     }
   end
 
-  # Create Label instance from hash (for loading from JSON)
+  # Create Label instance from hash or load from JSON)
   # @param data [Hash] Label data
   # @return [Label] New Label instance
   def self.from_h(data)
