@@ -26,7 +26,7 @@ class Label
     end
   end
 
-  # Remove an item from the label
+  # Remove an item from the labels
   # @param item [Item] Item to remove from the label
   # @return [Boolean] true if successfully removed
   def remove_item(item)
