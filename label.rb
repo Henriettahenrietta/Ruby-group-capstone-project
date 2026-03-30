@@ -39,13 +39,12 @@ class Label
     @items.length
   end
 
-  # Display label information in a formatted way
+
   # @return [String] Formatted label information
   def display
     "ID: #{@id} | Title: #{@title} | Color: #{@color} | Items: #{@items.length}"
   end
 
-  # Convert label to hash for JSON serialization
   # @return [Hash] Label data as hash
   def to_h
     {
