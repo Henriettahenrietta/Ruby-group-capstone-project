@@ -2,7 +2,7 @@
 
 A comprehensive Ruby console application for managing books and labels using Object-Oriented Programming (OOP) principles with JSON data persistence and full RSpec test coverage.
 
-## 📋 Features
+## Features
 
 - **OOP Architecture**: Clean class hierarchy with inheritance and polymorphism
 - **Data Persistence**: Automatic JSON storage and loading
@@ -11,20 +11,20 @@ A comprehensive Ruby console application for managing books and labels using Obj
 - **Comprehensive Testing**: 79 RSpec tests covering all functionality
 - **Association Management**: Books can be associated with labels
 
-## 🏗️ Architecture
+## Architecture
 
 ### Core Classes
 
 - **`Item`** - Base class with archiving functionality
 - **`Book`** - Inherits from Item with book-specific properties
-- **`Label`** - Manages categorization and item associations
+- **`Label`** - Manages categorization and item associations 
 
 ### Key Relationships
 
 - Book belongs to Item (inheritance)
 - Label has many Items (association)
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
@@ -35,7 +35,7 @@ A comprehensive Ruby console application for managing books and labels using Obj
 
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone <https://github.com/Henriettahenrietta/Ruby-group-capstone-project.git>
 cd Ruby-group-capstone-project
 
 # Install dependencies
@@ -44,7 +44,7 @@ bundle install
 gem install rspec
 ```
 
-## 🎮 Usage
+## Usage
 
 ### Running the Application
 
@@ -66,7 +66,7 @@ ruby main.rb
 - Pre-loaded with sample books and labels
 - Data automatically saved to JSON files
 
-## 🧪 Testing
+## Testing
 
 ### Test Overview
 
@@ -117,27 +117,27 @@ rspec -e "can_be_archived"
 
 #### Item Class Tests
 
-- ✅ Initialization with default values
-- ✅ Archiving logic with date validation
-- ✅ Archive prevention for recent items
-- ✅ JSON serialization (`to_h`)
+-  Initialization with default values
+-  Archiving logic with date validation
+-  Archive prevention for recent items
+-  JSON serialization (`to_h`)
 
 #### Book Class Tests
 
-- ✅ Inheritance from Item class
-- ✅ All initialization parameters and defaults
-- ✅ Overridden archiving with cover state validation
-- ✅ Display formatting for active/archived books
-- ✅ JSON serialization and deserialization
+-  Inheritance from Item class
+-  All initialization parameters and defaults
+-  Overridden archiving with cover state validation
+-  Display formatting for active/archived books
+-  JSON serialization and deserialization
 
 #### Label Class Tests
 
-- ✅ Label creation and properties
-- ✅ Adding/removing items to/from labels
-- ✅ Duplicate prevention
-- ✅ Item count tracking
-- ✅ Display formatting
-- ✅ JSON operations
+-  Label creation and properties
+-  Adding/removing items to/from labels
+-  Duplicate prevention
+-  Item count tracking
+-  Display formatting
+-  JSON operations
 
 ### Test Results
 
@@ -156,7 +156,7 @@ Finished in 0.12345 seconds
 run_tests.bat
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Ruby-group-capstone-project/
@@ -180,7 +180,7 @@ Ruby-group-capstone-project/
 └── README.md            # This file
 ```
 
-## 🔧 Development
+## Development
 
 ### Adding New Features
 
@@ -196,28 +196,13 @@ Ruby-group-capstone-project/
 - Use meaningful variable and method names
 - Add comments for complex logic
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/new-feature`)
-3. Write tests for new functionality
-4. Ensure all tests pass (`rspec`)
-5. Commit changes (`git commit -am 'Add new feature'`)
-6. Push to branch (`git push origin feature/new-feature`)
-7. Create Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📚 Additional Documentation
 
-- **[TESTING.md](TESTING.md)** - Comprehensive testing guide
-- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Full project documentation
-- **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide
-- **[TEST_QUICKREF.md](TEST_QUICKREF.md)** - Testing quick reference
-
----
 
 **Ruby Version**: 2.5+  
 **Test Framework**: RSpec 3.10  

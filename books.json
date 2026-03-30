@@ -25,8 +25,18 @@
     "archived": false,
     "title": "After",
     "author": "Henrietta",
-    "publisher": "Fongwah",
+    "publisher": "Fongwan",
     "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 4,
+    "publish_date": "2026-03-30",
+    "archived": false,
+    "title": "Lady with a beard",
+    "author": "Epie",
+    "publisher": "Epie",
+    "cover_state": "damage",
     "label_id": null
   }
 ]
