@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "publish_date": "2020-01-15",
+    "archived": true,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "publisher": "Scribner",
+    "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 2,
+    "publish_date": "2021-06-20",
+    "archived": false,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "publisher": "Lippincott",
+    "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 3,
+    "publish_date": "2009-05-21",
+    "archived": false,
+    "title": "After",
+    "author": "Henrietta",
+    "publisher": "Fongwah",
+    "cover_state": "good",
+    "label_id": null
+  }
+]
