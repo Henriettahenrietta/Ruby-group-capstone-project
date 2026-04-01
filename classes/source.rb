@@ -1,6 +1,6 @@
 require_relative 'item'
 
-class Genre
+class Source
   attr_accessor :id, :name, :items
 
   def initialize(id, name)
@@ -11,7 +11,7 @@ class Genre
 
   def add_item(item)
     @items << item
-    item.genre = self
+    item.source = self
   end
 
   def display

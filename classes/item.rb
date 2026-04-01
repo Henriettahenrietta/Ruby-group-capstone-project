@@ -1,5 +1,5 @@
 class Item
-  attr_accessor :id, :publish_date, :archived
+  attr_accessor :id, :publish_date, :archived, :genre, :author, :source, :label
 
   def initialize(id, publish_date, archived = false)
     @id = id
@@ -9,9 +9,9 @@ class Item
 
   def can_be_archived?
     publish_date_obj = Date.parse(@publish_date)
-    days_since_publish = (Date.today - publish_date_obj).to_i
+    years_since_publish = (Date.today - publish_date_obj).to_i / 365
     
-    days_since_publish >= 1
+    years_since_publish >= 10
   end
 
   def move_to_archive

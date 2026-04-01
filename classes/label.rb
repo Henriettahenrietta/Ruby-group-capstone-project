@@ -12,6 +12,7 @@ class Label
   def add_item(item)
     unless @items.include?(item)
       @items << item
+      item.label = self
       true
     else
       false
