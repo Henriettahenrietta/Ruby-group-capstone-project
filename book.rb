@@ -1,5 +1,6 @@
 require_relative 'item'
 
+# Book class represents a book item and inherits archiving behavior from Item
 class Book < Item
   attr_accessor :title, :author, :publisher, :cover_state, :label_id
 
@@ -12,25 +13,30 @@ class Book < Item
     @label_id = label_id
   end
 
+  # A book can be archived if the publish date is old enough or the cover is bad
   def can_be_archived?
-    super && (@cover_state == 'good' || @cover_state == 'acceptable')
+    super || @cover_state == "bad"
   end
 
+  # Format book details for console display
   def display
-    status = @archived ? "[ARCHIVED]" : "[ACTIVE]"
-    "#{status} ID: #{@id} | #{@title} by #{@author} | Publisher: #{@publisher} | Cover: #{@cover_state}"
+    status = @archived ? '[ARCHIVED]' : '[ACTIVE]'
+    label_text = @label_id ? "Label ID: #{@label_id}" : 'No label'
+    "#{status} ID: #{@id} | #{@title} by #{@author} | Publisher: #{@publisher} | Cover: #{@cover_state} | #{label_text}"
   end
 
+  # Prepare book attributes for JSON serialization
   def to_h
-    super.merge({
+    super.merge(
       title: @title,
       author: @author,
       publisher: @publisher,
       cover_state: @cover_state,
       label_id: @label_id
-    })
+    )
   end
 
+  # Create a Book instance from a JSON hash
   def self.from_h(data)
     new(
       data['id'],

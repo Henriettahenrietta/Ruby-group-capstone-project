@@ -90,66 +90,61 @@ RSpec.describe Book do
 
   describe '#can_be_archived?' do
     context 'when conditions are met' do
-      it 'returns true if item is old and cover is good' do
-        old_date = (Date.today - 10).to_s
-        book = Book.new(1, 'Old Book', 'Author', 'Publisher', old_date, 'good')
+      it 'returns true if item is old (>10 years) regardless of cover' do
+        old_date = (Date.today - (365 * 11)).to_s # 11 years ago
+        book = Book.new(1, 'Old Book', 'Author', 'Publisher', old_date, 'damaged')
         
         expect(book.can_be_archived?).to be(true)
       end
 
-      it 'returns true if item is old and cover is acceptable' do
-        old_date = (Date.today - 15).to_s
-        book = Book.new(1, 'Old Book', 'Author', 'Publisher', old_date, 'acceptable')
+      it 'returns true if cover is bad regardless of age' do
+        recent_date = (Date.today - 365).to_s # 1 year ago
+        book = Book.new(1, 'Recent Book', 'Author', 'Publisher', recent_date, 'bad')
         
         expect(book.can_be_archived?).to be(true)
       end
 
-      it 'returns true if item is very old and cover is good' do
-        very_old_date = '2010-01-01'
-        book = Book.new(1, 'Very Old Book', 'Author', 'Publisher', very_old_date, 'good')
+      it 'returns true if item is very old and cover is bad' do
+        very_old_date = '2000-01-01'
+        book = Book.new(1, 'Very Old Book', 'Author', 'Publisher', very_old_date, 'bad')
         
         expect(book.can_be_archived?).to be(true)
       end
     end
 
     context 'when conditions are not met' do
-      it 'returns false if cover state is damaged' do
-        old_date = (Date.today - 10).to_s
-        book = Book.new(1, 'Damaged Book', 'Author', 'Publisher', old_date, 'damaged')
+      it 'returns false if book is recent and cover is good' do
+        recent_date = (Date.today - 365).to_s # 1 year ago
+        book = Book.new(1, 'Recent Book', 'Author', 'Publisher', recent_date, 'good')
         
         expect(book.can_be_archived?).to be(false)
       end
 
-      it 'returns false if cover state is bad' do
-        old_date = (Date.today - 20).to_s
-        book = Book.new(1, 'Bad Book', 'Author', 'Publisher', old_date, 'bad')
+      it 'returns false if book is recent and cover is acceptable' do
+        recent_date = (Date.today - (365 * 5)).to_s # 5 years ago
+        book = Book.new(1, 'Recent Book', 'Author', 'Publisher', recent_date, 'acceptable')
         
         expect(book.can_be_archived?).to be(false)
       end
 
-      it 'returns false if book is published too recently' do
-        recent_date = Date.today.to_s
-        book = Book.new(1, 'New Book', 'Author', 'Publisher', recent_date, 'good')
+      it 'returns false if book is 9 years old and cover is good' do
+        nine_years_ago = (Date.today - (365 * 9)).to_s
+        book = Book.new(1, 'Nine Year Book', 'Author', 'Publisher', nine_years_ago, 'good')
         
         expect(book.can_be_archived?).to be(false)
-      end
-
-      it 'returns false if cover state is bad even with old date' do
-        very_old_date = '2000-01-01'
-        book = Book.new(1, 'Old Bad Book', 'Author', 'Publisher', very_old_date, 'bad')
         
         expect(book.can_be_archived?).to be(false)
       end
     end
 
     context 'override behavior' do
-      it 'overrides parent can_be_archived? with stricter criteria' do
-        old_date = (Date.today - 10).to_s
-        item = Item.new(1, old_date)
-        book = Book.new(1, 'Book', 'Author', 'Pub', old_date, 'bad')
+      it 'overrides parent can_be_archived? to allow archiving bad covers even if recent' do
+        recent_date = (Date.today - 365).to_s # 1 year ago
+        item = Item.new(1, recent_date)
+        book = Book.new(1, 'Book', 'Author', 'Pub', recent_date, 'bad')
         
-        expect(item.can_be_archived?).to be(true)
-        expect(book.can_be_archived?).to be(false)
+        expect(item.can_be_archived?).to be(false)
+        expect(book.can_be_archived?).to be(true)
       end
     end
   end

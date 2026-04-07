@@ -38,5 +38,15 @@
     "publisher": "Epie",
     "cover_state": "damage",
     "label_id": null
+  },
+  {
+    "id": 5,
+    "publish_date": "2010-01-21",
+    "archived": true,
+    "title": "Bible",
+    "author": "Mathew",
+    "publisher": "Hen",
+    "cover_state": "acceptable",
+    "label_id": 1
   }
 ]

@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "publish_date": "2010-01-01",
+    "archived": false,
+    "title": "Movie One",
+    "director": "Director A",
+    "genre_id": 1,
+    "silent": false
+  }
+]

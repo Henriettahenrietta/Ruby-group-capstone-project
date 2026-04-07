@@ -35,16 +35,16 @@ RSpec.describe Item do
   end
 
   describe '#can_be_archived?' do
-    context 'when item is published more than 1 day ago' do
-      it 'returns true for items published in the past' do
-        old_date = (Date.today - 10).to_s # 10 days ago
+    context 'when item is published more than 10 years ago' do
+      it 'returns true for items published more than 10 years ago' do
+        old_date = (Date.today - (365 * 11)).to_s # 11 years ago
         item = Item.new(1, old_date)
         
         expect(item.can_be_archived?).to be(true)
       end
 
-      it 'returns true for items published years ago' do
-        very_old_date = '2010-01-01'
+      it 'returns true for items published many years ago' do
+        very_old_date = '2000-01-01'
         item = Item.new(1, very_old_date)
         
         expect(item.can_be_archived?).to be(true)
@@ -52,22 +52,18 @@ RSpec.describe Item do
     end
 
     context 'when item is published recently' do
-      it 'returns false for items published today' do
-        today = Date.today.to_s
-        item = Item.new(1, today)
+      it 'returns false for items published recently' do
+        recent_date = (Date.today - (365 * 5)).to_s # 5 years ago
+        item = Item.new(1, recent_date)
         
         expect(item.can_be_archived?).to be(false)
       end
 
-      it 'returns false for items published yesterday' do
-        yesterday = (Date.today - 1).to_s
-        item = Item.new(1, yesterday)
+      it 'returns false for items published 9 years ago' do
+        nine_years_ago = (Date.today - (365 * 9)).to_s
+        item = Item.new(1, nine_years_ago)
         
-        # This should return true or false depending on time of day
-        # For safety, we count it as being at least 1 day
-        # Let's use a more reliable old date, 
-        item2 = Item.new(2, (Date.today - 2).to_s)
-        expect(item2.can_be_archived?).to be(true)
+        expect(item.can_be_archived?).to be(false)
       end
 
       it 'returns true for items published exactly 1 day ago' do
