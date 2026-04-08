@@ -663,9 +663,9 @@ class CatalogApp
 
   # Print the main application menu
   def display_menu
-    puts '\n' + '=' * 40
-    puts 'CATALOG MANAGEMENT SYSTEM'.center(40)
-    puts '=' * 40
+    puts '\n' + '=' * 20
+    puts 'CATALOG MANAGEMENT SYSTEM'.center(20)
+    puts '=' * 20
     puts 'List Items:'
     puts '1. List all books'
     puts '2. List all labels'
@@ -690,7 +690,7 @@ class CatalogApp
     puts '19. Archive a movie'
     puts '20. Archive a game'
     puts '21. Exit'
-    puts '=' * 40
+    puts '=' * 20
     print 'Select an option (1 to 21): '
   end
 
@@ -742,7 +742,7 @@ class CatalogApp
       when '20'
         archive_game
       when '21'
-        puts '\nThanks for using the Catalog Management System.'
+        puts 'Thanks for using the Catalog Management System.'
         break
       else
         puts '\nInvalid option. Please try again.\n'
