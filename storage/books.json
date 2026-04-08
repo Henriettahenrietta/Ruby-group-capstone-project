@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "publish_date": "2020-01-15",
+    "archived": true,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "publisher": "Scribner",
+    "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 2,
+    "publish_date": "2021-06-20",
+    "archived": false,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "publisher": "Lippincott",
+    "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 3,
+    "publish_date": "2009-05-21",
+    "archived": false,
+    "title": "After",
+    "author": "Henrietta",
+    "publisher": "Fongwan",
+    "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 4,
+    "publish_date": "2026-03-30",
+    "archived": false,
+    "title": "Lady with a beard",
+    "author": "Epie",
+    "publisher": "Epie",
+    "cover_state": "damage",
+    "label_id": null
+  }
+]

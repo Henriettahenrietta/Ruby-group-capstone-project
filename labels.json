@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Classic Literature",
+    "color": "blue"
+  },
+  {
+    "id": 2,
+    "title": "Fiction",
+    "color": "red"
+  },
+  {
+    "id": 3,
+    "title": "Favorites",
+    "color": "yellow"
+  }
+]
