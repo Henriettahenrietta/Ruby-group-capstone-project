@@ -1,33 +1,42 @@
-class Item
-  attr_accessor :id, :publish_date, :archived, :genre, :author, :source, :label
+require 'date'
 
-  def initialize(id, publish_date, archived = false)
-    @id = id
-    @publish_date = publish_date
+class Item
+  attr_accessor :date, :publish_date
+  attr_reader :id, :archived, :label, :author, :genre
+
+  def initialize(publish_date, archived: false)
+    @publish_date = begin
+      (Date.parse(publish_date) if publish_date.is_a?(String))
+    rescue Date::Error
+      nil
+    end
+
     @archived = archived
+    @id = Random.rand(1...1000)
   end
+
+  def genre=(genre)
+    @genre = genre
+    genre.items.push(self) unless genre.nil? || genre.items.include?(self)
+  end
+
+  def author=(author)
+    @author = author
+    author.items.push(self) unless author.nil? || author.items.include?(self)
+  end
+
+  def label=(label)
+    @label = label
+    label.items.push(self) unless label.nil? || label.items.include?(self)
+  end
+
+  def move_to_archive?
+    @archived = true if can_be_archived?
+  end
+
+  private
 
   def can_be_archived?
-    publish_date_obj = Date.parse(@publish_date)
-    years_since_publish = (Date.today - publish_date_obj).to_i / 365
-    
-    years_since_publish >= 10
-  end
-
-  def move_to_archive
-    if can_be_archived? && !@archived
-      @archived = true
-      true
-    else
-      false
-    end
-  end
-
-  def to_h
-    {
-      id: @id,
-      publish_date: @publish_date,
-      archived: @archived
-    }
+    (Time.now.year - @publish_date.year) > 10
   end
 end

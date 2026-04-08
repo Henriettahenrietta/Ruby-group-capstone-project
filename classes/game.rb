@@ -1,59 +1,27 @@
-require 'date'
 require_relative 'item'
+require 'date'
 
 class Game < Item
-  attr_accessor :id, :title, :multiplayer, :last_played_at, :genre_id, :author_id, :source_id, :label_id
+  attr_accessor :multiplayer, :last_played_at
 
-  def initialize(id, title, publish_date, multiplayer, last_played_at, genre_id = nil, author_id = nil, source_id = nil, label_id = nil, archived = false)
-    super(id, publish_date, archived)
-    @title = title
+  def initialize(multiplayer, last_played_at, publish_date, archived: false)
+    super(publish_date, archived: archived)
     @multiplayer = multiplayer
-    @last_played_at = last_played_at
-    @genre_id = genre_id
-    @author_id = author_id
-    @source_id = source_id
-    @label_id = label_id
+    begin
+      @last_played_at = Date.parse(last_played_at) if last_played_at.is_a?(String)
+    rescue Date::Error
+      @last_played_at = nil
+    end
   end
 
   def can_be_archived?
-    return false if @last_played_at.nil? || @last_played_at.empty?
-    
-    last_played = Date.parse(@last_played_at)
-    years_since_played = (Date.today - last_played).to_i / 365
-    
-    super && years_since_played >= 2
-  end
-
-  def display
-    status = @archived ? "[ARCHIVED]" : "[ACTIVE]"
-    mode = @multiplayer ? "Multiplayer" : "Single Player"
-    "#{status} ID: #{@id} | #{@title} | #{mode}"
-  end
-
-  def to_h
-    super.merge({
-      title: @title,
-      multiplayer: @multiplayer,
-      last_played_at: @last_played_at,
-      genre_id: @genre_id,
-      author_id: @author_id,
-      source_id: @source_id,
-      label_id: @label_id
-    })
-  end
-
-  def self.from_h(data)
-    new(
-      data['id'],
-      data['title'],
-      data['publish_date'],
-      data['multiplayer'],
-      data['last_played_at'],
-      data['genre_id'],
-      data['author_id'],
-      data['source_id'],
-      data['label_id'],
-      data['archived'] || false
-    )
+    now = Time.now.utc.to_date
+    add = if now.month > last_played_at.month || (now.month == last_played_at.month && now.day >= last_played_at.day)
+            0
+          else
+            1
+          end
+    age = now.year - last_played_at.year - add
+    super && (age > 2)
   end
 end
