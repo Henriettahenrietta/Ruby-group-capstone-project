@@ -1,4 +1,4 @@
-require_relative '../item'
+require_relative '../classes/item'
 require 'date'
 
 RSpec.describe Item do

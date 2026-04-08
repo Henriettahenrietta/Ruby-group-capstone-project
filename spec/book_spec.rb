@@ -1,5 +1,5 @@
-require_relative '../book'
-require_relative '../item'
+require_relative '../classes/book'
+require_relative '../classes/item'
 require 'date'
 
 RSpec.describe Book do

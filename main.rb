@@ -1,14 +1,14 @@
 require 'json'
 require 'date'
-require_relative 'item'
-require_relative 'book'
-require_relative 'label'
-require_relative 'genre'
-require_relative 'author'
-require_relative 'source'
-require_relative 'musicalbum'
-require_relative 'movie'
-require_relative 'game'
+require_relative 'classes/item'
+require_relative 'classes/book'
+require_relative 'classes/label'
+require_relative 'classes/genre'
+require_relative 'classes/author'
+require_relative 'classes/source'
+require_relative 'classes/musicalbum'
+require_relative 'classes/movie'
+require_relative 'classes/game'
 
 # Main application class for managing books and labels
 class CatalogApp
@@ -217,11 +217,11 @@ class CatalogApp
   # Display every stored book
   def list_all_books
     if @books.empty?
-      puts '\nNo books found'
+      puts "\nNo books found"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL BOOKS'.center(28)
     puts '=' * 28
     @books.each { |book| puts book.display }
@@ -232,11 +232,11 @@ class CatalogApp
   # Display every stored label
   def list_all_labels
     if @labels.empty?
-      puts '\nNo labels found!'
+      puts "\nNo labels found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL LABELS'.center(28)
     puts '=' * 28
     @labels.each { |label| puts label.display }
@@ -247,11 +247,11 @@ class CatalogApp
   # Display every stored genre
   def list_all_genres
     if @genres.empty?
-      puts '\nNo genres found!'
+      puts "\nNo genres found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL GENRES'.center(28)
     puts '=' * 28
     @genres.each { |genre| puts "ID: #{genre.id} | Name: #{genre.name}" }
@@ -262,11 +262,11 @@ class CatalogApp
   # Display every stored author
   def list_all_authors
     if @authors.empty?
-      puts '\nNo authors found!'
+      puts "\nNo authors found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL AUTHORS'.center(28)
     puts '=' * 28
     @authors.each { |author| puts "ID: #{author.id} | Name: #{author.first_name} #{author.last_name}" }
@@ -277,11 +277,11 @@ class CatalogApp
   # Display every stored source
   def list_all_sources
     if @sources.empty?
-      puts '\nNo sources found!'
+      puts "\nNo sources found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL SOURCES'.center(28)
     puts '=' * 28
     @sources.each { |source| puts "ID: #{source.id} | Name: #{source.name}" }
@@ -292,11 +292,11 @@ class CatalogApp
   # Display every stored music album
   def list_all_music_albums
     if @music_albums.empty?
-      puts '\nNo music albums found!'
+      puts "\nNo music albums found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL MUSIC ALBUMS'.center(28)
     puts '=' * 28
     @music_albums.each { |album| puts album.display }
@@ -307,11 +307,11 @@ class CatalogApp
   # Display every stored movie
   def list_all_movies
     if @movies.empty?
-      puts '\nNo movies found!'
+      puts "\nNo movies found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL MOVIES'.center(28)
     puts '=' * 28
     @movies.each { |movie| puts movie.display }
@@ -322,11 +322,11 @@ class CatalogApp
   # Display every stored game
   def list_all_games
     if @games.empty?
-      puts '\nNo games found!'
+      puts "\nNo games found!"
       return
     end
 
-    puts '\n' + '=' * 28
+    puts "\n" + '=' * 28
     puts 'ALL GAMES'.center(28)
     puts '=' * 28
     @games.each { |game| puts game.display }
@@ -663,7 +663,7 @@ class CatalogApp
 
   # Print the main application menu
   def display_menu
-    puts '\n' + '=' * 20
+    puts "\n" + '=' * 20
     puts 'CATALOG MANAGEMENT SYSTEM'.center(20)
     puts '=' * 20
     puts 'List Items:'
@@ -742,7 +742,7 @@ class CatalogApp
       when '20'
         archive_game
       when '21'
-        puts 'Thanks for using the Catalog Management System.'
+        puts '\nThanks for using the Catalog Management System\n.'
         break
       else
         puts '\nInvalid option. Please try again.\n'

@@ -4,8 +4,9 @@
     "publish_date": "2010-01-01",
     "archived": false,
     "title": "Album One",
-    "artist": "Artist A",
+    "on_spotify": true,
     "genre_id": 1,
-    "on_spotify": true
+    "author_id": null,
+    "source_id": null
   }
 ]

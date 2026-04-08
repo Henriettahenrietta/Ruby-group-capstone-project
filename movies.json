@@ -4,8 +4,10 @@
     "publish_date": "2010-01-01",
     "archived": false,
     "title": "Movie One",
-    "director": "Director A",
+    "silent": false,
     "genre_id": 1,
-    "silent": false
+    "author_id": null,
+    "source_id": null,
+    "label_id": null
   }
 ]

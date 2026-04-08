@@ -1,6 +1,6 @@
-require_relative '../label'
-require_relative '../item'
-require_relative '../book'
+require_relative '../classes/label'
+require_relative '../classes/item'
+require_relative '../classes/book'
 
 RSpec.describe Label do
   describe '#initialize' do

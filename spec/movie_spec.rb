@@ -1,4 +1,4 @@
-require_relative '../movie'
+require_relative '../classes/movie'
 require 'date'
 
 RSpec.describe Movie do
