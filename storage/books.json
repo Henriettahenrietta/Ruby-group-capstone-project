@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "publisher": "HenrittaIsange",
+    "cover_state": "bad",
+    "publish_date": "2026-03-12",
+    "archived": false,
+    "label": null,
+    "genre": {
+      "id": 614
+    },
+    "author": {
+      "id": 193
+    }
+  }
+]
