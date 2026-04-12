@@ -79,13 +79,13 @@ RSpec.describe Item do
     end
   end
 
-  describe '#move_to_archive' do
+  describe '#move_to_archive!' do
     context 'when item can be archived' do
       it 'changes archived status to true' do
         old_date = '2010-01-01'
         item = Item.new(1, old_date, archived: false)
         
-        item.move_to_archive
+        item.move_to_archive!
         
         expect(item.archived).to be(true)
       end
@@ -94,7 +94,7 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(1, old_date)
         
-        result = item.move_to_archive
+        result = item.move_to_archive!
         
         expect(result).to be(true)
       end
@@ -105,7 +105,7 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(1, old_date, archived: true)
         
-        result = item.move_to_archive
+        result = item.move_to_archive!
         
         expect(result).to be(false)
       end
@@ -114,7 +114,7 @@ RSpec.describe Item do
         recent_date = Date.today.to_s
         item = Item.new(1, recent_date)
         
-        result = item.move_to_archive
+        result = item.move_to_archive!
         
         expect(result).to be(false)
       end
@@ -123,7 +123,7 @@ RSpec.describe Item do
         recent_date = Date.today.to_s
         item = Item.new(1, recent_date, archived: false)
         
-        item.move_to_archive
+        item.move_to_archive!
         
         expect(item.archived).to be(false)
       end
@@ -134,8 +134,8 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(1, old_date)
         
-        first_call = item.move_to_archive
-        second_call = item.move_to_archive
+        first_call = item.move_to_archive!
+        second_call = item.move_to_archive!
         
         expect(first_call).to be(true)
         expect(second_call).to be(false)

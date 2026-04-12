@@ -1,10 +1,12 @@
 require 'date'
 
 class Item
+  DAYS_FOR_ARCHIVE = 365 * 10
+
   attr_accessor :date, :publish_date, :id
   attr_reader :archived, :label, :author, :genre
 
-  def initialize(id = Random.rand(1...1000), publish_date, archived: false)
+  def initialize(id = Random.rand(1..999), publish_date, archived: false)
     @id = id
     @publish_date = begin
       (Date.parse(publish_date) if publish_date.is_a?(String))
@@ -30,7 +32,7 @@ class Item
     label.items.push(self) unless label.nil? || label.items.include?(self)
   end
 
-  def move_to_archive
+  def move_to_archive!
     if can_be_archived? && !@archived
       @archived = true
       true
@@ -40,7 +42,7 @@ class Item
   end
 
   def can_be_archived?
-    (Date.today - @publish_date).to_i > 3650
+    (Date.today - @publish_date).to_i > DAYS_FOR_ARCHIVE
   end
 
   def to_h
