@@ -6,7 +6,7 @@ class Item
   attr_accessor :date, :publish_date, :id
   attr_reader :archived, :label, :author, :genre
 
-  def initialize(id = Random.rand(1..999), publish_date, archived: false)
+  def initialize(publish_date, archived: false, id: Random.rand(1..999))
     @id = id
     @publish_date = begin
       (Date.parse(publish_date) if publish_date.is_a?(String))
@@ -32,7 +32,7 @@ class Item
     label.items.push(self) unless label.nil? || label.items.include?(self)
   end
 
-  def move_to_archive!
+  def archive
     if can_be_archived? && !@archived
       @archived = true
       true
@@ -52,6 +52,4 @@ class Item
       archived: @archived
     }
   end
-
-  private
 end
