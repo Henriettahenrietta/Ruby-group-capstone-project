@@ -11,5 +11,18 @@
     "author": {
       "id": 193
     }
+  },
+  {
+    "publisher": "Mary",
+    "cover_state": "good",
+    "publish_date": "2026-04-17",
+    "archived": false,
+    "label": null,
+    "genre": {
+      "id": 555
+    },
+    "author": {
+      "id": 381
+    }
   }
 ]

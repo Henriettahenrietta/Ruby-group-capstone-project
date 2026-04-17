@@ -6,11 +6,15 @@ class Item
   attr_accessor :date, :publish_date, :id
   attr_reader :archived, :label, :author, :genre
 
-  def initialize(publish_date, archived: false, id: Random.rand(1..999))
+  def initialize(publish_date, archived: false, id: Random.rand(1...1000))
     @id = id
-    @publish_date = begin
-      (Date.parse(publish_date) if publish_date.is_a?(String))
-    rescue Date::Error
+    @publish_date = if publish_date.is_a?(String)
+      begin
+        Date.parse(publish_date)
+      rescue Date::Error
+        nil
+      end
+    else
       nil
     end
 
@@ -32,7 +36,7 @@ class Item
     label.items.push(self) unless label.nil? || label.items.include?(self)
   end
 
-  def archive
+  def move_to_archive!
     if can_be_archived? && !@archived
       @archived = true
       true
@@ -41,7 +45,12 @@ class Item
     end
   end
 
+  alias archive move_to_archive!
+  alias archive! move_to_archive!
+
   def can_be_archived?
+    return false if @publish_date.nil?
+
     (Date.today - @publish_date).to_i > DAYS_FOR_ARCHIVE
   end
 

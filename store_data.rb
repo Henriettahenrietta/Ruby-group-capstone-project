@@ -46,6 +46,7 @@ module StoreData
   def save_albums
     all_music_albums = @music_albums.map do |album|
       {
+        artist: album.artist,
         publish_date: album.publish_date,
         on_spotify: album.on_spotify,
         genre_name: album.genre&.name,

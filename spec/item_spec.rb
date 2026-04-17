@@ -69,12 +69,12 @@ RSpec.describe Item do
         expect(item2.can_be_archived?).to be(true)
       end
 
-      it 'returns true for items published exactly 1 day ago' do
-        one_day_ago = '2015-01-01'
+      it 'returns false for items published exactly 1 day ago' do
+        one_day_ago = (Date.today - 1).to_s
         item = Item.new(one_day_ago, id: 1)
         
         # Days since publish should be >= 1
-        expect(item.can_be_archived?).to be(true)
+        expect(item.can_be_archived?).to be(false)
       end
     end
   end
@@ -85,7 +85,7 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(old_date, archived: false, id: 1)
         
-        item.archive
+        item.archive!
         
         expect(item.archived).to be(true)
       end
@@ -94,7 +94,7 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(old_date, id: 1)
         
-        result = item.archive
+        result = item.archive!
         
         expect(result).to be(true)
       end
@@ -105,7 +105,7 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(old_date, archived: true, id: 1)
         
-        result = item.archive
+        result = item.archive!
         
         expect(result).to be(false)
       end
@@ -114,7 +114,7 @@ RSpec.describe Item do
         recent_date = Date.today.to_s
         item = Item.new(recent_date, id: 1)
         
-        result = item.archive
+        result = item.archive!
         
         expect(result).to be(false)
       end
@@ -123,7 +123,7 @@ RSpec.describe Item do
         recent_date = Date.today.to_s
         item = Item.new(recent_date, archived: false, id: 1)
         
-        item.archive
+        item.archive!
         
         expect(item.archived).to be(false)
       end
@@ -134,8 +134,8 @@ RSpec.describe Item do
         old_date = '2010-01-01'
         item = Item.new(old_date, id: 1)
         
-        first_call = item.archive
-        second_call = item.archive
+        first_call = item.archive!
+        second_call = item.archive!
         
         expect(first_call).to be(true)
         expect(second_call).to be(false)

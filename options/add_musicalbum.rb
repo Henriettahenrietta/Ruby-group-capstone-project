@@ -14,6 +14,9 @@ module AddMusicAlbum
       puts "Provide the date in format 'yyyy-mm-dd'"
     end
 
+    puts 'Enter artist name:'
+    @artist = gets.chomp
+
     puts 'Available on Spotify? (Y/y/N/n):'
 
     loop do
@@ -24,7 +27,7 @@ module AddMusicAlbum
     end
 
     @on_spotify = @on_spotify.downcase == 'y'
-    album = MusicAlbum.new(@publish_date, @on_spotify)
+    album = MusicAlbum.new(@artist, @publish_date, @on_spotify)
     @music_albums << album
 
     choose_label(album)

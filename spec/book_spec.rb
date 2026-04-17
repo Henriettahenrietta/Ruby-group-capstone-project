@@ -1,4 +1,4 @@
-require './classes/book'
+require_relative '../classes/book'
 require 'rspec'
 
 describe Book do
