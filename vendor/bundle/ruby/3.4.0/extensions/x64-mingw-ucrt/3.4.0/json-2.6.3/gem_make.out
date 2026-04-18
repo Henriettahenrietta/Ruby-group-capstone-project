@@ -1,0 +1,16 @@
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/json-2.6.3/ext/json
+C:/Ruby34-x64/bin/ruby.exe extconf.rb
+creating Makefile
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-5oq23e sitelibdir\=./.gem.20260418-14908-5oq23e clean
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-5oq23e sitelibdir\=./.gem.20260418-14908-5oq23e
+make: Nothing to be done for 'all'.
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-5oq23e sitelibdir\=./.gem.20260418-14908-5oq23e install
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-5oq23e sitelibdir\=./.gem.20260418-14908-5oq23e clean
