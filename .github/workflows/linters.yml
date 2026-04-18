@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ruby/setup-ruby@v3
+      - uses: ruby/setup-ruby@master
         with:
           ruby-version: 3.3
           bundler-cache: true
