@@ -1,18 +1,25 @@
 name: Tests
 
-on: pull_request
+on:
+  pull_request:
 
 jobs:
   rspec:
-    runs-on: ubuntu-22.04
+    name: RSpec Tests
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: ruby/setup-ruby@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v3
         with:
           ruby-version: 3.3
           bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
 
       - name: Run RSpec
         run: bundle exec rspec
