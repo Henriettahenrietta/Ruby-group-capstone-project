@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ruby/setup-ruby@master
+      - uses: ruby/setup-ruby@v3
         with:
           ruby-version: 3.3
           bundler-cache: true

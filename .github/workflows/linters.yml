@@ -6,12 +6,15 @@ on:
 
 jobs:
   rubocop:
+    name: Rubocop
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: ruby/setup-ruby@master
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v3
         with:
           ruby-version: 3.3
           bundler-cache: true
