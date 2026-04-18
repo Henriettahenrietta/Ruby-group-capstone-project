@@ -1,6 +1,8 @@
 name: Linters
 
-on: pull_request
+on:
+  pull_request:
+  push:
 
 jobs:
   rubocop:
@@ -8,11 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: ruby/setup-ruby@v3
         with:
           ruby-version: 3.4
           bundler-cache: true
-
-      - name: Run Rubocop
-        run: bundle exec rubocop --color
+      - run: bundle exec rubocop
