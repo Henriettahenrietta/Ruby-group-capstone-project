@@ -4,6 +4,10 @@ AllCops:
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
+    - "vendor/**/*"
+    - "vendor/bundle/**/*"
+    - "vendor/bundle/ruby/**/*"
+    - "vendor/bundle/ruby/3.4.0/**/*"
 
   DisplayCopNames: true
 

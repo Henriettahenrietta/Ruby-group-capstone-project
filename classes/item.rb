@@ -8,15 +8,16 @@ class Item
 
   def initialize(publish_date, archived: false, id: Random.rand(1...1000))
     @id = id
-    @publish_date = if publish_date.is_a?(String)
-      begin
-        Date.parse(publish_date)
-      rescue Date::Error
-        nil
-      end
-    else
-      nil
-    end
+    @publish_date = case publish_date
+                    when String
+                      begin
+                        Date.parse(publish_date)
+                      rescue Date::Error
+                        nil
+                      end
+                    when Date
+                      publish_date
+                    end
 
     @archived = archived
   end
@@ -30,6 +31,8 @@ class Item
     @author = author
     author.items.push(self) unless author.nil? || author.items.include?(self)
   end
+
+  alias add_author author=
 
   def label=(label)
     @label = label

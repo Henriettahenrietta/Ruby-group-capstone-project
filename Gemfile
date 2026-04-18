@@ -1,3 +1,3 @@
-gem 'rubocop', '< 2.0'
+gem 'rubocop', '1.57.1'
 source 'https://rubygems.org'
 gem 'rspec'

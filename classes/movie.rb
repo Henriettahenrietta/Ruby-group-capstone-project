@@ -4,7 +4,8 @@ require_relative 'item'
 class Movie < Item
   attr_accessor :id, :title, :silent, :genre_id, :author_id, :source_id, :label_id
 
-  def initialize(id, title, publish_date, silent, genre_id: nil, author_id: nil, source_id: nil, label_id: nil, archived: false)
+  def initialize(id, title, publish_date, silent, # rubocop:disable Metrics/ParameterLists
+                 genre_id: nil, author_id: nil, source_id: nil, label_id: nil, archived: false)
     super(publish_date, archived: archived, id: id)
     @title = title
     @silent = silent
