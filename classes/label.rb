@@ -1,8 +1,8 @@
 class Label
-  attr_accessor :id, :title, :color
-  attr_reader :items
+  attr_accessor :title, :color
+  attr_reader :id, :items
 
-  def initialize(id, title, color)
+  def initialize(title, color, id = Random.rand(1..1000))
     @id = id
     @title = title
     @color = color
@@ -10,36 +10,7 @@ class Label
   end
 
   def add_item(item)
-    unless @items.include?(item)
-      @items << item
-      item.label = self
-      true
-    else
-      false
-    end
-  end
-
-  def remove_item(item)
-    @items.delete(item) ? true : false
-  end
-
-  def item_count
-    @items.length
-  end
-
-  def display
-    "ID: #{@id} | Title: #{@title} | Color: #{@color} | Items: #{@items.length}"
-  end
-
-  def to_h
-    {
-      id: @id,
-      title: @title,
-      color: @color
-    }
-  end
-
-  def self.from_h(data)
-    new(data['id'], data['title'], data['color'])
+    @items.push(item)
+    item.label = self
   end
 end

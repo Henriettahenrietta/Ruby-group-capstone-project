@@ -1,9 +1,8 @@
-require_relative 'item'
-
 class Author
-  attr_accessor :id, :first_name, :last_name, :items
+  attr_reader :id, :items
+  attr_accessor :first_name, :last_name
 
-  def initialize(id, first_name, last_name)
+  def initialize(first_name, last_name, id = Random.rand(1..1000))
     @id = id
     @first_name = first_name
     @last_name = last_name
@@ -12,22 +11,6 @@ class Author
 
   def add_item(item)
     @items << item
-    item.author = self
-  end
-
-  def display
-    "ID: #{@id} | #{@first_name} #{@last_name} | Items: #{@items.length}"
-  end
-
-  def to_h
-    {
-      id: @id,
-      first_name: @first_name,
-      last_name: @last_name
-    }
-  end
-
-  def self.from_h(data)
-    new(data['id'], data['first_name'], data['last_name'])
+    item.add_author(self)
   end
 end
