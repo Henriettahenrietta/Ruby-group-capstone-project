@@ -1,11 +1,14 @@
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 3.3
+  DisplayCopNames: true
+
   Exclude:
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
-
-  DisplayCopNames: true
+    - "vendor/**/*"
+    - "bin/**/*"
 
 Layout/LineLength:
   Max: 120

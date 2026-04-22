@@ -2,12 +2,11 @@ require 'date'
 require_relative 'item'
 
 class Movie < Item
-  attr_accessor :id, :title, :silent, :genre_id, :author_id, :source_id, :label_id
+  attr_accessor :silent
+  attr_reader :id, :title, :genre_id, :author_id, :source_id, :label_id
 
-  def initialize(id, title, publish_date, silent, *extra)
-    options = extract_options(extra)
-
-    super(publish_date, archived: options[:archived])
+  def initialize(id:, title:, publish_date:, silent:, **options)
+    super(publish_date, archived: options[:archived] || false)
 
     @id = id
     @title = title
@@ -29,43 +28,30 @@ class Movie < Item
   end
 
   def to_h
-    super.merge(
+    {
+      id: @id,
       title: @title,
+      publish_date: @publish_date,
       silent: @silent,
       genre_id: @genre_id,
       author_id: @author_id,
       source_id: @source_id,
-      label_id: @label_id
-    )
+      label_id: @label_id,
+      archived: @archived
+    }
   end
 
   def self.from_h(data)
     new(
-      data['id'],
-      data['title'],
-      data['publish_date'],
-      data['silent'],
-      {
-        genre_id: data['genre_id'],
-        author_id: data['author_id'],
-        source_id: data['source_id'],
-        label_id: data['label_id'],
-        archived: data['archived'] || false
-      }
+      id: data['id'],
+      title: data['title'],
+      publish_date: data['publish_date'],
+      silent: data['silent'],
+      genre_id: data['genre_id'],
+      author_id: data['author_id'],
+      source_id: data['source_id'],
+      label_id: data['label_id'],
+      archived: data['archived'] || false
     )
-  end
-
-  private
-
-  def extract_options(extra)
-    return extra.last if extra.last.is_a?(Hash)
-
-    {
-      genre_id: extra[0],
-      author_id: extra[1],
-      source_id: extra[2],
-      label_id: extra[3],
-      archived: extra[4] || false
-    }
   end
 end
