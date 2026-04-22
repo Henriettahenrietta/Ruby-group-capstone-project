@@ -16,5 +16,8 @@ jobs:
         with:
           ruby-version: 3.3
           bundler-cache: true
+          cache-version: 2
+
+      - run: bundle install --clean
 
       - run: bundle exec rubocop --color
