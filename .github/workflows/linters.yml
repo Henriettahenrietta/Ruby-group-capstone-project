@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-
 name: Linters
 
 on:
@@ -12,17 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v3
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: 3.3
           bundler-cache: true
+          cache-version: 2
 
-      - name: Install dependencies
-        run: bundle install
+      - run: bundle install --clean
 
-      - name: Run Rubocop
-        run: bundle exec rubocop --format simple --color
+      - run: bundle exec rubocop --color
