@@ -1,16 +1,11 @@
 require 'date'
 
 class Item
-  attr_accessor :date, :publish_date
+  attr_accessor :publish_date
   attr_reader :id, :archived, :label, :author, :genre
 
   def initialize(publish_date, archived: false)
-    @publish_date = begin
-      (Date.parse(publish_date) if publish_date.is_a?(String))
-    rescue Date::Error
-      nil
-    end
-
+    @publish_date = parse_publish_date(publish_date)
     @archived = archived
     @id = Random.rand(1...1000)
   end
@@ -30,13 +25,24 @@ class Item
     label.items.push(self) unless label.nil? || label.items.include?(self)
   end
 
-  def move_to_archive?
+  def move_to_archive
     @archived = true if can_be_archived?
   end
 
   private
 
+  def parse_publish_date(value)
+    return value if value.is_a?(Date)
+    return Date.parse(value) if value.is_a?(String)
+
+    nil
+  rescue Date::Error
+    nil
+  end
+
   def can_be_archived?
-    (Time.now.year - @publish_date.year) > 10
+    return false if @publish_date.nil?
+
+    (Date.today.year - @publish_date.year) > 10
   end
 end

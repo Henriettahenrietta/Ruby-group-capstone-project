@@ -17,6 +17,4 @@ jobs:
           bundler-cache: true
           cache-version: 2
 
-      - run: bundle install --clean
-
       - run: bundle exec rspec

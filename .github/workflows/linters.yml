@@ -1,12 +1,11 @@
 name: Linters
 
 on:
-  push:
   pull_request:
 
 jobs:
   rubocop:
-    name: Rubocop
+    name: RuboCop
     runs-on: ubuntu-latest
 
     steps:
@@ -18,6 +17,4 @@ jobs:
           bundler-cache: true
           cache-version: 2
 
-      - run: bundle install --clean
-
-      - run: bundle exec rubocop --color
+      - run: bundle exec rubocop
