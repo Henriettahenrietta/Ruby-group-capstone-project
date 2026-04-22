@@ -5,6 +5,7 @@ on:
 
 jobs:
   rspec:
+    name: RSpec Tests
     runs-on: ubuntu-latest
 
     steps:
