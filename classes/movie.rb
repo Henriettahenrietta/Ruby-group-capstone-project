@@ -5,7 +5,7 @@ class Movie < Item
   attr_accessor :id, :title, :silent, :genre_id, :author_id, :source_id, :label_id
 
   def initialize(id, title, publish_date, silent, *extra, archived: false)
-    super(publish_date, archived: archived)
+    super(publish_date, archived:)
 
     @id = id
     @title = title
