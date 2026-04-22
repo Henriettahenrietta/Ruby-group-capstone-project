@@ -2,19 +2,27 @@ require 'date'
 require_relative 'item'
 
 class Movie < Item
-  attr_accessor :silent
-  attr_reader :id, :title, :genre_id, :author_id, :source_id, :label_id
+  attr_accessor :id, :title, :silent, :genre_id, :author_id, :source_id, :label_id
 
-  def initialize(id:, title:, publish_date:, silent:, **options)
-    super(publish_date, archived: options[:archived] || false)
+  def initialize(id, title, publish_date, silent, *args, archived: false)
+    options = args.last.is_a?(Hash) ? args.last : {}
+
+    final_archived = if options.key?(:archived)
+                       options[:archived]
+                     else
+                       archived
+                     end
+
+    super(publish_date, archived: final_archived)
 
     @id = id
     @title = title
     @silent = silent
-    @genre_id = options[:genre_id]
-    @author_id = options[:author_id]
-    @source_id = options[:source_id]
-    @label_id = options[:label_id]
+
+    @genre_id = args[0]
+    @author_id = args[1]
+    @source_id = args[2]
+    @label_id = args[3]
   end
 
   def can_be_archived?
@@ -28,29 +36,26 @@ class Movie < Item
   end
 
   def to_h
-    {
-      id: @id,
+    super.merge(
       title: @title,
-      publish_date: @publish_date,
       silent: @silent,
       genre_id: @genre_id,
       author_id: @author_id,
       source_id: @source_id,
-      label_id: @label_id,
-      archived: @archived
-    }
+      label_id: @label_id
+    )
   end
 
   def self.from_h(data)
     new(
-      id: data['id'],
-      title: data['title'],
-      publish_date: data['publish_date'],
-      silent: data['silent'],
-      genre_id: data['genre_id'],
-      author_id: data['author_id'],
-      source_id: data['source_id'],
-      label_id: data['label_id'],
+      data['id'],
+      data['title'],
+      data['publish_date'],
+      data['silent'],
+      data['genre_id'],
+      data['author_id'],
+      data['source_id'],
+      data['label_id'],
       archived: data['archived'] || false
     )
   end
