@@ -42,7 +42,12 @@ module LoadData
 
     musicalbums_loaded = JSON.parse(File.read('./storage/musicalbum.json'))
     @music_albums = musicalbums_loaded.map do |album|
-      album_obj = MusicAlbum.new(album['artist'] || 'Unknown', album['publish_date'], album['on_spotify'], archived: album['archived'])
+      album_obj = MusicAlbum.new(
+        album['artist'] || 'Unknown',
+        album['publish_date'],
+        album['on_spotify'],
+        archived: album['archived']
+      )
       album_obj.genre = @genres.find { |g| g.id == album['genre']['id'] } if album['genre']
       album_obj.label = @labels.find { |l| l.id == album['label']['id'] } if album['label']
       album_obj.author = @authors.find { |a| a.id == album['author']['id'] } if album['author']
