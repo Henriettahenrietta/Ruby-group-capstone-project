@@ -5,7 +5,8 @@ module LanguageServer
       # Completion options.
       #
       class CompletionOptions
-        def initialize(work_done_progress: nil, trigger_characters: nil, all_commit_characters: nil, resolve_provider: nil, completion_item: nil)
+        def initialize(work_done_progress: nil, trigger_characters: nil, all_commit_characters: nil,
+                       resolve_provider: nil, completion_item: nil)
           @attributes = {}
 
           @attributes[:workDoneProgress] = work_done_progress if work_done_progress
@@ -78,8 +79,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

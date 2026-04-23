@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class ReferenceParams
-        def initialize(text_document:, position:, work_done_token: nil, partial_result_token: nil, context:)
+        def initialize(text_document:, position:, context:, work_done_token: nil, partial_result_token: nil)
           @attributes = {}
 
           @attributes[:textDocument] = text_document
@@ -58,8 +58,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

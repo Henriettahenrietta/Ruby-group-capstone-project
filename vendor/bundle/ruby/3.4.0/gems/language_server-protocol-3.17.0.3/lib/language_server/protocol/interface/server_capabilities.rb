@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class ServerCapabilities
-        def initialize(position_encoding: nil, text_document_sync: nil, notebook_document_sync: nil, completion_provider: nil, hover_provider: nil, signature_help_provider: nil, declaration_provider: nil, definition_provider: nil, type_definition_provider: nil, implementation_provider: nil, references_provider: nil, document_highlight_provider: nil, document_symbol_provider: nil, code_action_provider: nil, code_lens_provider: nil, document_link_provider: nil, color_provider: nil, document_formatting_provider: nil, document_range_formatting_provider: nil, document_on_type_formatting_provider: nil, rename_provider: nil, folding_range_provider: nil, execute_command_provider: nil, selection_range_provider: nil, linked_editing_range_provider: nil, call_hierarchy_provider: nil, semantic_tokens_provider: nil, moniker_provider: nil, type_hierarchy_provider: nil, inline_value_provider: nil, inlay_hint_provider: nil, diagnostic_provider: nil, workspace_symbol_provider: nil, workspace: nil, experimental: nil)
+        def initialize(position_encoding: nil, text_document_sync: nil, notebook_document_sync: nil,
+                       completion_provider: nil, hover_provider: nil, signature_help_provider: nil, declaration_provider: nil, definition_provider: nil, type_definition_provider: nil, implementation_provider: nil, references_provider: nil, document_highlight_provider: nil, document_symbol_provider: nil, code_action_provider: nil, code_lens_provider: nil, document_link_provider: nil, color_provider: nil, document_formatting_provider: nil, document_range_formatting_provider: nil, document_on_type_formatting_provider: nil, rename_provider: nil, folding_range_provider: nil, execute_command_provider: nil, selection_range_provider: nil, linked_editing_range_provider: nil, call_hierarchy_provider: nil, semantic_tokens_provider: nil, moniker_provider: nil, type_hierarchy_provider: nil, inline_value_provider: nil, inlay_hint_provider: nil, diagnostic_provider: nil, workspace_symbol_provider: nil, workspace: nil, experimental: nil)
           @attributes = {}
 
           @attributes[:positionEncoding] = position_encoding if position_encoding
@@ -23,8 +24,14 @@ module LanguageServer
           @attributes[:documentLinkProvider] = document_link_provider if document_link_provider
           @attributes[:colorProvider] = color_provider if color_provider
           @attributes[:documentFormattingProvider] = document_formatting_provider if document_formatting_provider
-          @attributes[:documentRangeFormattingProvider] = document_range_formatting_provider if document_range_formatting_provider
-          @attributes[:documentOnTypeFormattingProvider] = document_on_type_formatting_provider if document_on_type_formatting_provider
+          if document_range_formatting_provider
+            @attributes[:documentRangeFormattingProvider] =
+              document_range_formatting_provider
+          end
+          if document_on_type_formatting_provider
+            @attributes[:documentOnTypeFormattingProvider] =
+              document_on_type_formatting_provider
+          end
           @attributes[:renameProvider] = rename_provider if rename_provider
           @attributes[:foldingRangeProvider] = folding_range_provider if folding_range_provider
           @attributes[:executeCommandProvider] = execute_command_provider if execute_command_provider
@@ -343,8 +350,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class CompletionClientCapabilities
-        def initialize(dynamic_registration: nil, completion_item: nil, completion_item_kind: nil, context_support: nil, insert_text_mode: nil, completion_list: nil)
+        def initialize(dynamic_registration: nil, completion_item: nil, completion_item_kind: nil,
+                       context_support: nil, insert_text_mode: nil, completion_list: nil)
           @attributes = {}
 
           @attributes[:dynamicRegistration] = dynamic_registration if dynamic_registration
@@ -70,8 +71,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

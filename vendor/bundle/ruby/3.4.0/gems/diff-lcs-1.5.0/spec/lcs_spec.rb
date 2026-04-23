@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 describe Diff::LCS::Internals, '.lcs' do
@@ -47,7 +45,7 @@ describe Diff::LCS, '.LCS' do
   end
 
   it 'returns %W(h e l l o) with (hello, hello)' do
-    expect(Diff::LCS.LCS(hello, hello)).to eq(hello.split(//))
+    expect(Diff::LCS.LCS(hello, hello)).to eq(hello.chars)
   end
 
   it 'returns hello_ary with (hello_ary, hello_ary)' do

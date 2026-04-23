@@ -5,7 +5,7 @@ module LanguageServer
       # Inline value options used during static or dynamic registration.
       #
       class InlineValueRegistrationOptions
-        def initialize(work_done_progress: nil, document_selector:, id: nil)
+        def initialize(document_selector:, work_done_progress: nil, id: nil)
           @attributes = {}
 
           @attributes[:workDoneProgress] = work_done_progress if work_done_progress
@@ -44,8 +44,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

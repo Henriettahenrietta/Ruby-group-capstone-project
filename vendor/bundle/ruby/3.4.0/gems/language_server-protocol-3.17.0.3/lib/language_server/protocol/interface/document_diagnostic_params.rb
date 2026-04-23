@@ -5,7 +5,8 @@ module LanguageServer
       # Parameters of the document diagnostic request.
       #
       class DocumentDiagnosticParams
-        def initialize(work_done_token: nil, partial_result_token: nil, text_document:, identifier: nil, previous_result_id: nil)
+        def initialize(text_document:, work_done_token: nil, partial_result_token: nil, identifier: nil,
+                       previous_result_id: nil)
           @attributes = {}
 
           @attributes[:workDoneToken] = work_done_token if work_done_token
@@ -64,8 +65,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class SemanticTokensOptions
-        def initialize(work_done_progress: nil, legend:, range: nil, full: nil)
+        def initialize(legend:, work_done_progress: nil, range: nil, full: nil)
           @attributes = {}
 
           @attributes[:workDoneProgress] = work_done_progress if work_done_progress
@@ -49,8 +49,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

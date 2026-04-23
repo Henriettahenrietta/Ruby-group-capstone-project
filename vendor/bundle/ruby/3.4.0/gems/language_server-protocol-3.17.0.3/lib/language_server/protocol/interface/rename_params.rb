@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class RenameParams
-        def initialize(text_document:, position:, work_done_token: nil, new_name:)
+        def initialize(text_document:, position:, new_name:, work_done_token: nil)
           @attributes = {}
 
           @attributes[:textDocument] = text_document
@@ -53,8 +53,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

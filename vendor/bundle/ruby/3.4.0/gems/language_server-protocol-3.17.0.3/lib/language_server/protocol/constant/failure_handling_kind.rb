@@ -7,23 +7,23 @@ module LanguageServer
         # provided fails. All operations executed before the failing operation
         # stay executed.
         #
-        ABORT = 'abort'
+        ABORT = 'abort'.freeze
         #
         # All operations are executed transactional. That means they either all
         # succeed or no changes at all are applied to the workspace.
         #
-        TRANSACTIONAL = 'transactional'
+        TRANSACTIONAL = 'transactional'.freeze
         #
         # If the workspace edit contains only textual file changes they are
         # executed transactional. If resource changes (create, rename or delete
         # file) are part of the change the failure handling strategy is abort.
         #
-        TEXT_ONLY_TRANSACTIONAL = 'textOnlyTransactional'
+        TEXT_ONLY_TRANSACTIONAL = 'textOnlyTransactional'.freeze
         #
         # The client tries to undo the operations already executed. But there is no
         # guarantee that this is succeeding.
         #
-        UNDO = 'undo'
+        UNDO = 'undo'.freeze
       end
     end
   end

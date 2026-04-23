@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class LocationLink
-        def initialize(origin_selection_range: nil, target_uri:, target_range:, target_selection_range:)
+        def initialize(target_uri:, target_range:, target_selection_range:, origin_selection_range: nil)
           @attributes = {}
 
           @attributes[:originSelectionRange] = origin_selection_range if origin_selection_range
@@ -59,8 +59,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

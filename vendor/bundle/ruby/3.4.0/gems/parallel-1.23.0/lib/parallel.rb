@@ -1,4 +1,5 @@
-# frozen_string_literal: true
+require 'English'
+
 require 'rbconfig'
 require 'parallel/version'
 
@@ -83,6 +84,7 @@ module Parallel
         raise DeadWorker
       end
       raise result.exception if result.is_a?(ExceptionWrapper)
+
       result
     end
 
@@ -110,14 +112,17 @@ module Parallel
         # - do not call lambda after it has returned Stop
         item, index = @mutex.synchronize do
           return if @stopped
+
           item = @lambda.call
           @stopped = (item == Stop)
           return if @stopped
+
           [item, @index += 1]
         end
       else
         index = @mutex.synchronize { @index += 1 }
         return if index >= size
+
         item = @source[index]
       end
       [item, index]
@@ -192,11 +197,10 @@ module Parallel
 
         Signal.trap signal do
           yield
-          if !old || old == "DEFAULT"
-            raise Interrupt
-          else
-            old.call
-          end
+          raise Interrupt if !old || old == 'DEFAULT'
+
+
+          old.call
         end
 
         old
@@ -225,36 +229,38 @@ module Parallel
       end
     end
 
-    def in_processes(options = {}, &block)
+    def in_processes(options = {}, &)
       count, options = extract_count_from_options(options)
       count ||= processor_count
-      map(0...count, options.merge(in_processes: count), &block)
+      map(0...count, options.merge(in_processes: count), &)
     end
 
-    def each(array, options = {}, &block)
-      map(array, options.merge(preserve_results: false), &block)
+    def each(array, options = {}, &)
+      map(array, options.merge(preserve_results: false), &)
     end
 
-    def any?(*args, &block)
-      raise "You must provide a block when calling #any?" if block.nil?
-      !each(*args) { |*a| raise Kill if block.call(*a) }
+    def any?(*, &block)
+      raise 'You must provide a block when calling #any?' if block.nil?
+
+      !each(*) { |*a| raise Kill if block.call(*a) }
     end
 
-    def all?(*args, &block)
-      raise "You must provide a block when calling #all?" if block.nil?
-      !!each(*args) { |*a| raise Kill unless block.call(*a) }
+    def all?(*, &block)
+      raise 'You must provide a block when calling #all?' if block.nil?
+
+      !!each(*) { |*a| raise Kill unless block.call(*a) }
     end
 
-    def each_with_index(array, options = {}, &block)
-      each(array, options.merge(with_index: true), &block)
+    def each_with_index(array, options = {}, &)
+      each(array, options.merge(with_index: true), &)
     end
 
-    def map(source, options = {}, &block)
+    def map(source, options = {}, &)
       options = options.dup
       options[:mutex] = Mutex.new
 
       if options[:in_processes] && options[:in_threads]
-        raise ArgumentError, "Please specify only one of `in_processes` or `in_threads`."
+        raise ArgumentError, 'Please specify only one of `in_processes` or `in_threads`.'
       elsif RUBY_PLATFORM =~ (/java/) && !(options[:in_processes])
         method = :in_threads
         size = options[method] || processor_count
@@ -269,7 +275,7 @@ module Parallel
         if Process.respond_to?(:fork)
           size = options[method] || processor_count
         else
-          warn "Process.fork is not supported by this Ruby"
+          warn 'Process.fork is not supported by this Ruby'
           size = 0
         end
       end
@@ -277,51 +283,52 @@ module Parallel
       job_factory = JobFactory.new(source, options[:mutex])
       size = [job_factory.size, size].min
 
-      options[:return_results] = (options[:preserve_results] != false || !!options[:finish])
+      options[:return_results] = (options[:preserve_results] != false || !options[:finish].nil?)
       add_progress_bar!(job_factory, options)
 
       result =
-        if size == 0
-          work_direct(job_factory, options, &block)
+        if size.zero?
+          work_direct(job_factory, options, &)
         elsif method == :in_threads
-          work_in_threads(job_factory, options.merge(count: size), &block)
+          work_in_threads(job_factory, options.merge(count: size), &)
         elsif method == :in_ractors
-          work_in_ractors(job_factory, options.merge(count: size), &block)
+          work_in_ractors(job_factory, options.merge(count: size), &)
         else
-          work_in_processes(job_factory, options.merge(count: size), &block)
+          work_in_processes(job_factory, options.merge(count: size), &)
         end
 
       return result.value if result.is_a?(Break)
       raise result if result.is_a?(Exception)
+
       options[:return_results] ? result : source
     end
 
-    def map_with_index(array, options = {}, &block)
-      map(array, options.merge(with_index: true), &block)
+    def map_with_index(array, options = {}, &)
+      map(array, options.merge(with_index: true), &)
     end
 
-    def flat_map(*args, &block)
-      map(*args, &block).flatten(1)
+    def flat_map(*, &)
+      map(*, &).flatten(1)
     end
 
-    def filter_map(*args, &block)
-      map(*args, &block).compact
+    def filter_map(*, &)
+      map(*, &).compact
     end
 
     # Number of physical processor cores on the current system.
     def physical_processor_count
       @physical_processor_count ||= begin
         ppc =
-          case RbConfig::CONFIG["target_os"]
+          case RbConfig::CONFIG['target_os']
           when /darwin[12]/
-            IO.popen("/usr/sbin/sysctl -n hw.physicalcpu").read.to_i
+            IO.popen('/usr/sbin/sysctl -n hw.physicalcpu').read.to_i
           when /linux/
             cores = {} # unique physical ID / core ID combinations
             phy = 0
-            File.read("/proc/cpuinfo").scan(/^physical id.*|^core id.*/) do |ln|
-              if ln.start_with?("physical")
+            File.read('/proc/cpuinfo').scan(/^physical id.*|^core id.*/) do |ln|
+              if ln.start_with?('physical')
                 phy = ln[/\d+/]
-              elsif ln.start_with?("core")
+              elsif ln.start_with?('core')
                 cid = "#{phy}:#{ln[/\d+/]}"
                 cores[cid] = true unless cores[cid]
               end
@@ -329,15 +336,15 @@ module Parallel
             cores.count
           when /mswin|mingw/
             require 'win32ole'
-            result_set = WIN32OLE.connect("winmgmts://").ExecQuery(
-              "select NumberOfCores from Win32_Processor"
+            result_set = WIN32OLE.connect('winmgmts://').ExecQuery(
+              'select NumberOfCores from Win32_Processor'
             )
             result_set.to_enum.collect(&:NumberOfCores).reduce(:+)
           else
             processor_count
           end
         # fall back to logical count if physical info is invalid
-        ppc > 0 ? ppc : processor_count
+        ppc.positive? ? ppc : processor_count
       end
     end
 
@@ -359,51 +366,52 @@ module Parallel
     private
 
     def add_progress_bar!(job_factory, options)
-      if progress_options = options[:progress]
-        raise "Progressbar can only be used with array like items" if job_factory.size == Float::INFINITY
-        require 'ruby-progressbar'
+      return unless (progress_options = options[:progress])
+      raise 'Progressbar can only be used with array like items' if job_factory.size == Float::INFINITY
 
-        if progress_options == true
-          progress_options = { title: "Progress" }
-        elsif progress_options.respond_to? :to_str
-          progress_options = { title: progress_options.to_str }
-        end
+      require 'ruby-progressbar'
 
-        progress_options = {
-          total: job_factory.size,
-          format: '%t |%E | %B | %a'
-        }.merge(progress_options)
+      if progress_options == true
+        progress_options = { title: 'Progress' }
+      elsif progress_options.respond_to? :to_str
+        progress_options = { title: progress_options.to_str }
+      end
 
-        progress = ProgressBar.create(progress_options)
-        old_finish = options[:finish]
-        options[:finish] = lambda do |item, i, result|
-          old_finish.call(item, i, result) if old_finish
-          progress.increment
-        end
+      progress_options = {
+        total: job_factory.size,
+        format: '%t |%E | %B | %a'
+      }.merge(progress_options)
+
+      progress = ProgressBar.create(progress_options)
+      old_finish = options[:finish]
+      options[:finish] = lambda do |item, i, result|
+        old_finish.call(item, i, result) if old_finish
+        progress.increment
       end
     end
 
-    def work_direct(job_factory, options, &block)
+    def work_direct(job_factory, options, &)
       self.worker_number = 0
       results = []
       exception = nil
       begin
-        while set = job_factory.next
+        while (set = job_factory.next)
           item, index = set
           results << with_instrumentation(item, index, options) do
-            call_with_index(item, index, options, &block)
+            call_with_index(item, index, options, &)
           end
         end
       rescue StandardError
-        exception = $!
+        exception = $ERROR_INFO
       end
       exception || results
     ensure
       self.worker_number = nil
     end
 
-    def work_in_threads(job_factory, options, &block)
-      raise "interrupt_signal is no longer supported for threads" if options[:interrupt_signal]
+    def work_in_threads(job_factory, options, &)
+      raise 'interrupt_signal is no longer supported for threads' if options[:interrupt_signal]
+
       results = []
       results_mutex = Mutex.new # arrays are not thread-safe on jRuby
       exception = nil
@@ -411,15 +419,15 @@ module Parallel
       in_threads(options) do |worker_num|
         self.worker_number = worker_num
         # as long as there are more jobs, work on one of them
-        while !exception && set = job_factory.next
+        while !exception && (set = job_factory.next)
           begin
             item, index = set
             result = with_instrumentation item, index, options do
-              call_with_index(item, index, options, &block)
+              call_with_index(item, index, options, &)
             end
             results_mutex.synchronize { results[index] = result }
           rescue StandardError
-            exception = $!
+            exception = $ERROR_INFO
           end
         end
       end
@@ -434,7 +442,7 @@ module Parallel
 
       callback = options[:ractor]
       if block_given? || !callback
-        raise ArgumentError, "pass the code you want to execute as `ractor: [ClassName, :method_name]`"
+        raise ArgumentError, 'pass the code you want to execute as `ractor: [ClassName, :method_name]`'
       end
 
       # build
@@ -444,6 +452,7 @@ module Parallel
             got = receive
             (klass, method_name), item, index = got
             break if index == :break
+
             begin
               Ractor.yield [nil, klass.send(method_name, item), item, index]
             rescue StandardError => e
@@ -455,7 +464,7 @@ module Parallel
 
       # start
       ractors.dup.each do |ractor|
-        if set = job_factory.next
+        if (set = job_factory.next)
           item, index = set
           instrument_start item, index, options
           ractor.send [callback, item, index]
@@ -466,7 +475,7 @@ module Parallel
       end
 
       # replace with new items
-      while set = job_factory.next
+      while (set = job_factory.next)
         item_next, index_next = set
         done, (exception, result, item, index) = Ractor.select(*ractors)
         if exception
@@ -485,6 +494,7 @@ module Parallel
         (new_exception, result, item, index) = ractor.take
         exception ||= new_exception
         next if new_exception
+
         instrument_finish item, index, result, options
         results_mutex.synchronize { results[index] = (options[:preserve_results] == false ? nil : result) }
         ractor.send([[nil, nil], nil, :break]) # stop the ractor
@@ -508,6 +518,7 @@ module Parallel
           begin
             loop do
               break if exception
+
               item, index = job_factory.next
               break unless index
 
@@ -553,15 +564,15 @@ module Parallel
       end
     end
 
-    def create_workers(job_factory, options, &block)
+    def create_workers(job_factory, options, &)
       workers = []
       Array.new(options[:count]).each_with_index do |_, i|
-        workers << worker(job_factory, options.merge(started_workers: workers, worker_number: i), &block)
+        workers << worker(job_factory, options.merge(started_workers: workers, worker_number: i), &)
       end
       workers
     end
 
-    def worker(job_factory, options, &block)
+    def worker(job_factory, options, &)
       child_read, parent_write = IO.pipe
       parent_read, child_write = IO.pipe
 
@@ -574,7 +585,7 @@ module Parallel
           parent_write.close
           parent_read.close
 
-          process_incoming_jobs(child_read, child_write, job_factory, options, &block)
+          process_incoming_jobs(child_read, child_write, job_factory, options, &)
         ensure
           child_read.close
           child_write.close
@@ -587,19 +598,19 @@ module Parallel
       Worker.new(parent_read, parent_write, pid)
     end
 
-    def process_incoming_jobs(read, write, job_factory, options, &block)
+    def process_incoming_jobs(read, write, job_factory, options, &)
       until read.eof?
         data = Marshal.load(read)
         item, index = job_factory.unpack(data)
 
         result =
           begin
-            call_with_index(item, index, options, &block)
+            call_with_index(item, index, options, &)
           # https://github.com/rspec/rspec-support/blob/673133cdd13b17077b3d88ece8d7380821f8d7dc/lib/rspec/support.rb#L132-L140
           rescue NoMemoryError, SignalException, Interrupt, SystemExit # rubocop:disable Lint/ShadowedException
-            raise $!
+            raise $ERROR_INFO
           rescue Exception # # rubocop:disable Lint/RescueException
-            ExceptionWrapper.new($!)
+            ExceptionWrapper.new($ERROR_INFO)
           end
 
         begin
@@ -640,12 +651,14 @@ module Parallel
     end
 
     def instrument_finish(item, index, result, options)
-      return unless on_finish = options[:finish]
+      return unless (on_finish = options[:finish])
+
       options[:mutex].synchronize { on_finish.call(item, index, result) }
     end
 
     def instrument_start(item, index, options)
-      return unless on_start = options[:start]
+      return unless (on_start = options[:start])
+
       options[:mutex].synchronize { on_start.call(item, index) }
     end
   end

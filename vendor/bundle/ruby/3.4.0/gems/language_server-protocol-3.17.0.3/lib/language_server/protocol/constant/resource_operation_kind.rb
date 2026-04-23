@@ -8,15 +8,15 @@ module LanguageServer
         #
         # Supports creating new files and folders.
         #
-        CREATE = 'create'
+        CREATE = 'create'.freeze
         #
         # Supports renaming existing files and folders.
         #
-        RENAME = 'rename'
+        RENAME = 'rename'.freeze
         #
         # Supports deleting existing files and folders.
         #
-        DELETE = 'delete'
+        DELETE = 'delete'.freeze
       end
     end
   end

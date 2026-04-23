@@ -9,7 +9,8 @@ module LanguageServer
       # the `edit` is applied first, then the `command` is executed.
       #
       class CodeAction
-        def initialize(title:, kind: nil, diagnostics: nil, is_preferred: nil, disabled: nil, edit: nil, command: nil, data: nil)
+        def initialize(title:, kind: nil, diagnostics: nil, is_preferred: nil, disabled: nil, edit: nil, command: nil,
+                       data: nil)
           @attributes = {}
 
           @attributes[:title] = title
@@ -118,8 +119,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

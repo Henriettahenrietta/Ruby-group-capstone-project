@@ -5,7 +5,7 @@ module LanguageServer
       # Diagnostic options.
       #
       class DiagnosticOptions
-        def initialize(work_done_progress: nil, identifier: nil, inter_file_dependencies:, workspace_diagnostics:)
+        def initialize(inter_file_dependencies:, workspace_diagnostics:, work_done_progress: nil, identifier: nil)
           @attributes = {}
 
           @attributes[:workDoneProgress] = work_done_progress if work_done_progress
@@ -55,8 +55,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -15,15 +15,15 @@ module LanguageServer
         #
         # Empty kind.
         #
-        EMPTY = ''
+        EMPTY = ''.freeze
         #
         # Base kind for quickfix actions: 'quickfix'.
         #
-        QUICK_FIX = 'quickfix'
+        QUICK_FIX = 'quickfix'.freeze
         #
         # Base kind for refactoring actions: 'refactor'.
         #
-        REFACTOR = 'refactor'
+        REFACTOR = 'refactor'.freeze
         #
         # Base kind for refactoring extraction actions: 'refactor.extract'.
         #
@@ -35,7 +35,7 @@ module LanguageServer
         # - Extract interface from class
         # - ...
         #
-        REFACTOR_EXTRACT = 'refactor.extract'
+        REFACTOR_EXTRACT = 'refactor.extract'.freeze
         #
         # Base kind for refactoring inline actions: 'refactor.inline'.
         #
@@ -46,7 +46,7 @@ module LanguageServer
         # - Inline constant
         # - ...
         #
-        REFACTOR_INLINE = 'refactor.inline'
+        REFACTOR_INLINE = 'refactor.inline'.freeze
         #
         # Base kind for refactoring rewrite actions: 'refactor.rewrite'.
         #
@@ -59,18 +59,18 @@ module LanguageServer
         # - Move method to base class
         # - ...
         #
-        REFACTOR_REWRITE = 'refactor.rewrite'
+        REFACTOR_REWRITE = 'refactor.rewrite'.freeze
         #
         # Base kind for source actions: `source`.
         #
         # Source code actions apply to the entire file.
         #
-        SOURCE = 'source'
+        SOURCE = 'source'.freeze
         #
         # Base kind for an organize imports source action:
         # `source.organizeImports`.
         #
-        SOURCE_ORGANIZE_IMPORTS = 'source.organizeImports'
+        SOURCE_ORGANIZE_IMPORTS = 'source.organizeImports'.freeze
         #
         # Base kind for a 'fix all' source action: `source.fixAll`.
         #
@@ -78,7 +78,7 @@ module LanguageServer
         # do not require user input. They should not suppress errors or perform
         # unsafe fixes such as generating new types or classes.
         #
-        SOURCE_FIX_ALL = 'source.fixAll'
+        SOURCE_FIX_ALL = 'source.fixAll'.freeze
       end
     end
   end

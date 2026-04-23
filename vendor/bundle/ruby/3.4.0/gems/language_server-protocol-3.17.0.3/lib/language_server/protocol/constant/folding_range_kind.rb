@@ -9,15 +9,15 @@ module LanguageServer
         #
         # Folding range for a comment
         #
-        COMMENT = 'comment'
+        COMMENT = 'comment'.freeze
         #
         # Folding range for imports or includes
         #
-        IMPORTS = 'imports'
+        IMPORTS = 'imports'.freeze
         #
         # Folding range for a region (e.g. `#region`)
         #
-        REGION = 'region'
+        REGION = 'region'.freeze
       end
     end
   end

@@ -5,7 +5,8 @@ module LanguageServer
       # Value-object describing what options formatting should use.
       #
       class FormattingOptions
-        def initialize(tab_size:, insert_spaces:, trim_trailing_whitespace: nil, insert_final_newline: nil, trim_final_newlines: nil)
+        def initialize(tab_size:, insert_spaces:, trim_trailing_whitespace: nil, insert_final_newline: nil,
+                       trim_final_newlines: nil)
           @attributes = {}
 
           @attributes[:tabSize] = tab_size
@@ -63,8 +64,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

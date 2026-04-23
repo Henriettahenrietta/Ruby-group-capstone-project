@@ -5,7 +5,7 @@ module LanguageServer
       # A special workspace symbol that supports locations without a range
       #
       class WorkspaceSymbol
-        def initialize(name:, kind:, tags: nil, container_name: nil, location:, data: nil)
+        def initialize(name:, kind:, location:, tags: nil, container_name: nil, data: nil)
           @attributes = {}
 
           @attributes[:name] = name
@@ -80,8 +80,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

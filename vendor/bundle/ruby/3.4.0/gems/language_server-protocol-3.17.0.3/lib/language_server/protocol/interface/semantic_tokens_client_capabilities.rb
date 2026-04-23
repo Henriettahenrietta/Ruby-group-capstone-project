@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class SemanticTokensClientCapabilities
-        def initialize(dynamic_registration: nil, requests:, token_types:, token_modifiers:, formats:, overlapping_token_support: nil, multiline_token_support: nil, server_cancel_support: nil, augments_syntax_tokens: nil)
+        def initialize(requests:, token_types:, token_modifiers:, formats:, dynamic_registration: nil,
+                       overlapping_token_support: nil, multiline_token_support: nil, server_cancel_support: nil, augments_syntax_tokens: nil)
           @attributes = {}
 
           @attributes[:dynamicRegistration] = dynamic_registration if dynamic_registration
@@ -116,8 +117,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -8,7 +8,7 @@ module LanguageServer
       # most interesting range, e.g. the range of an identifier.
       #
       class DocumentSymbol
-        def initialize(name:, detail: nil, kind:, tags: nil, deprecated: nil, range:, selection_range:, children: nil)
+        def initialize(name:, kind:, range:, selection_range:, detail: nil, tags: nil, deprecated: nil, children: nil)
           @attributes = {}
 
           @attributes[:name] = name
@@ -99,8 +99,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -6,7 +6,7 @@ module LanguageServer
       # presented in the editor.
       #
       class CompletionList
-        def initialize(is_incomplete:, item_defaults: nil, items:)
+        def initialize(is_incomplete:, items:, item_defaults: nil)
           @attributes = {}
 
           @attributes[:isIncomplete] = is_incomplete
@@ -60,8 +60,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class ClientCapabilities
-        def initialize(workspace: nil, text_document: nil, notebook_document: nil, window: nil, general: nil, experimental: nil)
+        def initialize(workspace: nil, text_document: nil, notebook_document: nil, window: nil, general: nil,
+                       experimental: nil)
           @attributes = {}
 
           @attributes[:workspace] = workspace if workspace
@@ -69,8 +70,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

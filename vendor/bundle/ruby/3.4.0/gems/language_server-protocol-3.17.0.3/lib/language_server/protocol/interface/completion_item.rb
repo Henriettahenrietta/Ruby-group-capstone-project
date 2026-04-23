@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class CompletionItem
-        def initialize(label:, label_details: nil, kind: nil, tags: nil, detail: nil, documentation: nil, deprecated: nil, preselect: nil, sort_text: nil, filter_text: nil, insert_text: nil, insert_text_format: nil, insert_text_mode: nil, text_edit: nil, text_edit_text: nil, additional_text_edits: nil, commit_characters: nil, command: nil, data: nil)
+        def initialize(label:, label_details: nil, kind: nil, tags: nil, detail: nil, documentation: nil,
+                       deprecated: nil, preselect: nil, sort_text: nil, filter_text: nil, insert_text: nil, insert_text_format: nil, insert_text_mode: nil, text_edit: nil, text_edit_text: nil, additional_text_edits: nil, commit_characters: nil, command: nil, data: nil)
           @attributes = {}
 
           @attributes[:label] = label
@@ -258,8 +259,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

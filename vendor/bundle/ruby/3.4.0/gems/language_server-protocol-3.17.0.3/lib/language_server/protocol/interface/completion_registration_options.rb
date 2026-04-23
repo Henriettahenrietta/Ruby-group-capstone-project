@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class CompletionRegistrationOptions
-        def initialize(document_selector:, work_done_progress: nil, trigger_characters: nil, all_commit_characters: nil, resolve_provider: nil, completion_item: nil)
+        def initialize(document_selector:, work_done_progress: nil, trigger_characters: nil,
+                       all_commit_characters: nil, resolve_provider: nil, completion_item: nil)
           @attributes = {}
 
           @attributes[:documentSelector] = document_selector
@@ -85,8 +86,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

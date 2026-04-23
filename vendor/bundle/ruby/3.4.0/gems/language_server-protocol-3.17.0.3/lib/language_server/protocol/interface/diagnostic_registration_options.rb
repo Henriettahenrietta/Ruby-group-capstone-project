@@ -5,7 +5,8 @@ module LanguageServer
       # Diagnostic registration options.
       #
       class DiagnosticRegistrationOptions
-        def initialize(document_selector:, work_done_progress: nil, identifier: nil, inter_file_dependencies:, workspace_diagnostics:, id: nil)
+        def initialize(document_selector:, inter_file_dependencies:, workspace_diagnostics:, work_done_progress: nil,
+                       identifier: nil, id: nil)
           @attributes = {}
 
           @attributes[:documentSelector] = document_selector
@@ -75,8 +76,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

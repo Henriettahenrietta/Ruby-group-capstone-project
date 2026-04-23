@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class CodeActionClientCapabilities
-        def initialize(dynamic_registration: nil, code_action_literal_support: nil, is_preferred_support: nil, disabled_support: nil, data_support: nil, resolve_support: nil, honors_change_annotations: nil)
+        def initialize(dynamic_registration: nil, code_action_literal_support: nil, is_preferred_support: nil,
+                       disabled_support: nil, data_support: nil, resolve_support: nil, honors_change_annotations: nil)
           @attributes = {}
 
           @attributes[:dynamicRegistration] = dynamic_registration if dynamic_registration
@@ -86,8 +87,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

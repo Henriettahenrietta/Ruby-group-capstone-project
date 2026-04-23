@@ -2,12 +2,16 @@ module LanguageServer
   module Protocol
     module Interface
       class RenameClientCapabilities
-        def initialize(dynamic_registration: nil, prepare_support: nil, prepare_support_default_behavior: nil, honors_change_annotations: nil)
+        def initialize(dynamic_registration: nil, prepare_support: nil, prepare_support_default_behavior: nil,
+                       honors_change_annotations: nil)
           @attributes = {}
 
           @attributes[:dynamicRegistration] = dynamic_registration if dynamic_registration
           @attributes[:prepareSupport] = prepare_support if prepare_support
-          @attributes[:prepareSupportDefaultBehavior] = prepare_support_default_behavior if prepare_support_default_behavior
+          if prepare_support_default_behavior
+            @attributes[:prepareSupportDefaultBehavior] =
+              prepare_support_default_behavior
+          end
           @attributes[:honorsChangeAnnotations] = honors_change_annotations if honors_change_annotations
 
           @attributes.freeze
@@ -60,8 +64,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

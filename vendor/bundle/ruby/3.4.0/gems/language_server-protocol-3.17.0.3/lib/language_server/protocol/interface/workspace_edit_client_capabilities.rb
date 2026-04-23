@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class WorkspaceEditClientCapabilities
-        def initialize(document_changes: nil, resource_operations: nil, failure_handling: nil, normalizes_line_endings: nil, change_annotation_support: nil)
+        def initialize(document_changes: nil, resource_operations: nil, failure_handling: nil,
+                       normalizes_line_endings: nil, change_annotation_support: nil)
           @attributes = {}
 
           @attributes[:documentChanges] = document_changes if document_changes
@@ -66,8 +67,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

@@ -7,7 +7,7 @@ module LanguageServer
       # are free to ignore invalid ranges.
       #
       class FoldingRange
-        def initialize(start_line:, start_character: nil, end_line:, end_character: nil, kind: nil, collapsed_text: nil)
+        def initialize(start_line:, end_line:, start_character: nil, end_character: nil, kind: nil, collapsed_text: nil)
           @attributes = {}
 
           @attributes[:startLine] = start_line
@@ -85,8 +85,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

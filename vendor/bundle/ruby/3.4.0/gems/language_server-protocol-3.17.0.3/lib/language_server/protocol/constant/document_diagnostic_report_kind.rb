@@ -9,12 +9,12 @@ module LanguageServer
         # A diagnostic report with a full
         # set of problems.
         #
-        FULL = 'full'
+        FULL = 'full'.freeze
         #
         # A report indicating that the last
         # returned report is still accurate.
         #
-        UNCHANGED = 'unchanged'
+        UNCHANGED = 'unchanged'.freeze
       end
     end
   end

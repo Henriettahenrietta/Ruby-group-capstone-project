@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class ExecuteCommandOptions
-        def initialize(work_done_progress: nil, commands:)
+        def initialize(commands:, work_done_progress: nil)
           @attributes = {}
 
           @attributes[:workDoneProgress] = work_done_progress if work_done_progress
@@ -30,8 +30,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

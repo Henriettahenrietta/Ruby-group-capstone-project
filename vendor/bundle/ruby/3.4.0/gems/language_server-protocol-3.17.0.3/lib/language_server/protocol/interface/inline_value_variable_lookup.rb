@@ -10,7 +10,7 @@ module LanguageServer
       # An optional variable name can be used to override the extracted name.
       #
       class InlineValueVariableLookup
-        def initialize(range:, variable_name: nil, case_sensitive_lookup:)
+        def initialize(range:, case_sensitive_lookup:, variable_name: nil)
           @attributes = {}
 
           @attributes[:range] = range
@@ -52,8 +52,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

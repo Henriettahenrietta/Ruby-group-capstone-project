@@ -2,12 +2,16 @@ module LanguageServer
   module Protocol
     module Interface
       class DocumentSymbolClientCapabilities
-        def initialize(dynamic_registration: nil, symbol_kind: nil, hierarchical_document_symbol_support: nil, tag_support: nil, label_support: nil)
+        def initialize(dynamic_registration: nil, symbol_kind: nil, hierarchical_document_symbol_support: nil,
+                       tag_support: nil, label_support: nil)
           @attributes = {}
 
           @attributes[:dynamicRegistration] = dynamic_registration if dynamic_registration
           @attributes[:symbolKind] = symbol_kind if symbol_kind
-          @attributes[:hierarchicalDocumentSymbolSupport] = hierarchical_document_symbol_support if hierarchical_document_symbol_support
+          if hierarchical_document_symbol_support
+            @attributes[:hierarchicalDocumentSymbolSupport] =
+              hierarchical_document_symbol_support
+          end
           @attributes[:tagSupport] = tag_support if tag_support
           @attributes[:labelSupport] = label_support if label_support
 
@@ -64,8 +68,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

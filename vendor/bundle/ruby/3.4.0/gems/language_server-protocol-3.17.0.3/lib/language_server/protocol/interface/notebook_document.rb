@@ -5,7 +5,7 @@ module LanguageServer
       # A notebook document.
       #
       class NotebookDocument
-        def initialize(uri:, notebook_type:, version:, metadata: nil, cells:)
+        def initialize(uri:, notebook_type:, version:, cells:, metadata: nil)
           @attributes = {}
 
           @attributes[:uri] = uri
@@ -65,8 +65,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

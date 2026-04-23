@@ -1,7 +1,4 @@
-unless defined?(::JSON::JSON_LOADED) and ::JSON::JSON_LOADED
-  require 'json'
-end
-defined?(::Set) or require 'set'
+require 'json' unless defined?(JSON::JSON_LOADED) and JSON::JSON_LOADED
 
 class Set
   # Import a JSON Marshalled object.
@@ -17,13 +14,12 @@ class Set
   def as_json(*)
     {
       JSON.create_id => self.class.name,
-      'a'            => to_a,
+      'a' => to_a
     }
   end
 
   # return the JSON value
-  def to_json(*args)
-    as_json.to_json(*args)
+  def to_json(*)
+    as_json.to_json(*)
   end
 end
-

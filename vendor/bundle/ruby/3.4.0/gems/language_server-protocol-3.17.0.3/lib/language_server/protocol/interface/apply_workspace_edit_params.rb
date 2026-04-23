@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class ApplyWorkspaceEditParams
-        def initialize(label: nil, edit:)
+        def initialize(edit:, label: nil)
           @attributes = {}
 
           @attributes[:label] = label if label
@@ -35,8 +35,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

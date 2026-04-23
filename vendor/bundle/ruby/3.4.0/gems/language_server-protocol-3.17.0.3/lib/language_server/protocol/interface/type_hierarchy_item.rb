@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class TypeHierarchyItem
-        def initialize(name:, kind:, tags: nil, detail: nil, uri:, range:, selection_range:, data: nil)
+        def initialize(name:, kind:, uri:, range:, selection_range:, tags: nil, detail: nil, data: nil)
           @attributes = {}
 
           @attributes[:name] = name
@@ -93,8 +93,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

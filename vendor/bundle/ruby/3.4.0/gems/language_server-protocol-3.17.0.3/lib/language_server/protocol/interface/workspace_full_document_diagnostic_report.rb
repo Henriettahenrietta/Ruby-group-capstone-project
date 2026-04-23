@@ -5,7 +5,7 @@ module LanguageServer
       # A full document diagnostic report for a workspace diagnostic result.
       #
       class WorkspaceFullDocumentDiagnosticReport
-        def initialize(kind:, result_id: nil, items:, uri:, version:)
+        def initialize(kind:, items:, uri:, version:, result_id: nil)
           @attributes = {}
 
           @attributes[:kind] = kind
@@ -66,8 +66,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

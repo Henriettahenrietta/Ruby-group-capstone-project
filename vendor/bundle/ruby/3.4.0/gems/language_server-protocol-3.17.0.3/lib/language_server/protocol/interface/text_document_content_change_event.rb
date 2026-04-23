@@ -6,7 +6,7 @@ module LanguageServer
       # it is considered to be the full content of the document.
       #
       class TextDocumentContentChangeEvent
-        def initialize(range: nil, range_length: nil, text:)
+        def initialize(text:, range: nil, range_length: nil)
           @attributes = {}
 
           @attributes[:range] = range if range
@@ -50,8 +50,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

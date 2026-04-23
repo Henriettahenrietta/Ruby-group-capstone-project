@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class SemanticTokensRegistrationOptions
-        def initialize(document_selector:, work_done_progress: nil, legend:, range: nil, full: nil, id: nil)
+        def initialize(document_selector:, legend:, work_done_progress: nil, range: nil, full: nil, id: nil)
           @attributes = {}
 
           @attributes[:documentSelector] = document_selector
@@ -69,8 +69,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

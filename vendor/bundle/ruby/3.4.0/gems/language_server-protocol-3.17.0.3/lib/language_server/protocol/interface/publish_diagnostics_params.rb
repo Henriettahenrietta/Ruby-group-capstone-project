@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class PublishDiagnosticsParams
-        def initialize(uri:, version: nil, diagnostics:)
+        def initialize(uri:, diagnostics:, version: nil)
           @attributes = {}
 
           @attributes[:uri] = uri
@@ -43,8 +43,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

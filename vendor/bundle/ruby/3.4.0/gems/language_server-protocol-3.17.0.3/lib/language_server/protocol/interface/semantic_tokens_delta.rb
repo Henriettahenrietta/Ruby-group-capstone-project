@@ -2,7 +2,7 @@ module LanguageServer
   module Protocol
     module Interface
       class SemanticTokensDelta
-        def initialize(result_id: nil, edits:)
+        def initialize(edits:, result_id: nil)
           @attributes = {}
 
           @attributes[:resultId] = result_id if result_id
@@ -31,8 +31,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

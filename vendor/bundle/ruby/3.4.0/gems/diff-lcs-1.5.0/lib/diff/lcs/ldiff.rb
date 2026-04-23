@@ -1,47 +1,43 @@
-# frozen_string_literal: true
-
 require 'optparse'
 require 'ostruct'
 require 'diff/lcs/hunk'
 
-module Diff::LCS::Ldiff #:nodoc:
-  BANNER = <<-COPYRIGHT
-ldiff #{Diff::LCS::VERSION}
-  Copyright 2004-2019 Austin Ziegler
+module Diff::LCS::Ldiff # :nodoc:
+  BANNER = <<~COPYRIGHT.freeze
+    ldiff #{Diff::LCS::VERSION}
+      Copyright 2004-2019 Austin Ziegler
 
-  Part of Diff::LCS.
-  https://github.com/halostatue/diff-lcs
+      Part of Diff::LCS.
+      https://github.com/halostatue/diff-lcs
 
-  This program is free software. It may be redistributed and/or modified under
-  the terms of the GPL version 2 (or later), the Perl Artistic licence, or the
-  MIT licence.
+      This program is free software. It may be redistributed and/or modified under
+      the terms of the GPL version 2 (or later), the Perl Artistic licence, or the
+      MIT licence.
   COPYRIGHT
 end
 
 class << Diff::LCS::Ldiff
-  attr_reader :format, :lines #:nodoc:
-  attr_reader :file_old, :file_new #:nodoc:
-  attr_reader :data_old, :data_new #:nodoc:
+  attr_reader :format, :lines, :file_old, :file_new, :data_old, :data_new # :nodoc: # :nodoc: # :nodoc:
 
-  def run(args, _input = $stdin, output = $stdout, error = $stderr) #:nodoc:
+  def run(args, _input = $stdin, output = $stdout, error = $stderr) # :nodoc:
     @binary = nil
 
     args.options do |o|
-      o.banner = "Usage: #{File.basename($0)} [options] oldfile newfile"
+      o.banner = "Usage: #{File.basename($PROGRAM_NAME)} [options] oldfile newfile"
       o.separator ''
       o.on(
         '-c', '-C', '--context [LINES]', Integer,
         'Displays a context diff with LINES lines', 'of context. Default 3 lines.'
       ) do |ctx|
         @format = :context
-        @lines  = ctx || 3
+        @lines = ctx || 3
       end
       o.on(
         '-u', '-U', '--unified [LINES]', Integer,
         'Displays a unified diff with LINES lines', 'of context. Default 3 lines.'
       ) do |ctx|
         @format = :unified
-        @lines  = ctx || 3
+        @lines = ctx || 3
       end
       o.on('-e', 'Creates an \'ed\' script to change', 'oldfile to newfile.') do |_ctx|
         @format = :ed
@@ -81,7 +77,7 @@ class << Diff::LCS::Ldiff
 
     # Defaults are for old-style diff
     @format ||= :old
-    @lines  ||= 0
+    @lines ||= 0
 
     file_old, file_new = *ARGV
 
@@ -98,8 +94,8 @@ class << Diff::LCS::Ldiff
     # items we've read from each file will differ by FLD (could be 0).
     file_length_difference = 0
 
-    data_old = IO.read(file_old)
-    data_new = IO.read(file_new)
+    data_old = File.read(file_old)
+    data_new = File.read(file_new)
 
     # Test binary status
     if @binary.nil?

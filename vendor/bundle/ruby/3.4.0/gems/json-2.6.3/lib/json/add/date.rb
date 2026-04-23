@@ -1,11 +1,7 @@
-#frozen_string_literal: false
-unless defined?(::JSON::JSON_LOADED) and ::JSON::JSON_LOADED
-  require 'json'
-end
+require 'json' unless defined?(JSON::JSON_LOADED) and JSON::JSON_LOADED
 require 'date'
 
 class Date
-
   # Deserializes JSON string by converting Julian year <tt>y</tt>, month
   # <tt>m</tt>, day <tt>d</tt> and Day of Calendar Reform <tt>sg</tt> to Date.
   def self.json_create(object)
@@ -22,13 +18,13 @@ class Date
       'y' => year,
       'm' => month,
       'd' => day,
-      'sg' => start,
+      'sg' => start
     }
   end
 
   # Stores class name (Date) with Julian year <tt>y</tt>, month <tt>m</tt>, day
   # <tt>d</tt> and Day of Calendar Reform <tt>sg</tt> as JSON string
-  def to_json(*args)
-    as_json.to_json(*args)
+  def to_json(*)
+    as_json.to_json(*)
   end
 end

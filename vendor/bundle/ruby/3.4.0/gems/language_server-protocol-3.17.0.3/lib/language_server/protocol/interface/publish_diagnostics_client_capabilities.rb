@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class PublishDiagnosticsClientCapabilities
-        def initialize(related_information: nil, tag_support: nil, version_support: nil, code_description_support: nil, data_support: nil)
+        def initialize(related_information: nil, tag_support: nil, version_support: nil, code_description_support: nil,
+                       data_support: nil)
           @attributes = {}
 
           @attributes[:relatedInformation] = related_information if related_information
@@ -64,8 +65,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

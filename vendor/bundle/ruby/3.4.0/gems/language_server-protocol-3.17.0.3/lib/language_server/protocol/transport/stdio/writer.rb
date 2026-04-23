@@ -4,7 +4,7 @@ module LanguageServer
       module Stdio
         class Writer < Io::Writer
           def initialize
-            super STDOUT
+            super $stdout
           end
         end
       end

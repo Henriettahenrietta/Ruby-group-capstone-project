@@ -5,7 +5,8 @@ module LanguageServer
       # Inlay hint information.
       #
       class InlayHint
-        def initialize(position:, label:, kind: nil, text_edits: nil, tooltip: nil, padding_left: nil, padding_right: nil, data: nil)
+        def initialize(position:, label:, kind: nil, text_edits: nil, tooltip: nil, padding_left: nil,
+                       padding_right: nil, data: nil)
           @attributes = {}
 
           @attributes[:position] = position
@@ -113,8 +114,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

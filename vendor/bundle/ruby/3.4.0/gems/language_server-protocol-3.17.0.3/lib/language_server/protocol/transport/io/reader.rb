@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require "json"
+require 'json'
 
 module LanguageServer
   module Protocol
@@ -13,7 +11,7 @@ module LanguageServer
           end
 
           def read(&block)
-            while buffer = io.gets("\r\n\r\n")
+            while (buffer = io.gets("\r\n\r\n"))
               content_length = buffer.match(/Content-Length: (\d+)/i)[1].to_i
               message = io.read(content_length) or raise
               request = JSON.parse(message, symbolize_names: true)

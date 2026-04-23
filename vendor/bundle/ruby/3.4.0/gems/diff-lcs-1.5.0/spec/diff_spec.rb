@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 describe Diff::LCS, '.diff' do
@@ -30,7 +28,9 @@ describe Diff::LCS, '.diff' do
 
     diff = Diff::LCS.diff([], word_sequence)
     correct_diff.each do |hunk|
-      hunk.each do |change| change[0] = '+' end
+      hunk.each do |change|
+        change[0] = '+'
+      end
     end
     expect(change_diff(correct_diff)).to eq(diff)
   end

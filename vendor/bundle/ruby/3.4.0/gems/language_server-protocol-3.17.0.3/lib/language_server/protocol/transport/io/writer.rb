@@ -12,11 +12,11 @@ module LanguageServer
 
           def write(response)
             response_str = response.merge(
-              jsonrpc: "2.0"
+              jsonrpc: '2.0'
             ).to_json
 
             headers = {
-              "Content-Length" => response_str.bytesize
+              'Content-Length' => response_str.bytesize
             }
 
             headers.each do |k, v|

@@ -5,7 +5,7 @@ module LanguageServer
       # A full diagnostic report with a set of related documents.
       #
       class RelatedFullDocumentDiagnosticReport
-        def initialize(kind:, result_id: nil, items:, related_documents: nil)
+        def initialize(kind:, items:, result_id: nil, related_documents: nil)
           @attributes = {}
 
           @attributes[:kind] = kind
@@ -60,8 +60,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

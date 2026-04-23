@@ -9,11 +9,11 @@ module LanguageServer
         #
         # The pattern matches a file only.
         #
-        FILE = 'file'
+        FILE = 'file'.freeze
         #
         # The pattern matches a folder only.
         #
-        FOLDER = 'folder'
+        FOLDER = 'folder'.freeze
       end
     end
   end

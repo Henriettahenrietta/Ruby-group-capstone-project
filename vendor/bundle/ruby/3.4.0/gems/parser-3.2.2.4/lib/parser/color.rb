@@ -1,28 +1,27 @@
-# frozen_string_literal: true
-
 module Parser
   module Color
     def self.color(str, code, bold: false)
-      return str unless STDOUT.tty?
+      return str unless $stdout.tty?
+
       code = Array(code)
       code.unshift(1) if bold
       "\e[#{code.join(';')}m#{str}\e[0m"
     end
 
     def self.red(str, bold: false)
-      color(str, 31, bold: bold)
+      color(str, 31, bold:)
     end
 
     def self.green(str, bold: false)
-      color(str, 32, bold: bold)
+      color(str, 32, bold:)
     end
 
     def self.yellow(str, bold: false)
-      color(str, 33, bold: bold)
+      color(str, 33, bold:)
     end
 
     def self.magenta(str, bold: false)
-      color(str, 35, bold: bold)
+      color(str, 35, bold:)
     end
 
     def self.underline(str)

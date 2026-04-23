@@ -5,7 +5,8 @@ module LanguageServer
       # Text document specific client capabilities.
       #
       class TextDocumentClientCapabilities
-        def initialize(synchronization: nil, completion: nil, hover: nil, signature_help: nil, declaration: nil, definition: nil, type_definition: nil, implementation: nil, references: nil, document_highlight: nil, document_symbol: nil, code_action: nil, code_lens: nil, document_link: nil, color_provider: nil, formatting: nil, range_formatting: nil, on_type_formatting: nil, rename: nil, publish_diagnostics: nil, folding_range: nil, selection_range: nil, linked_editing_range: nil, call_hierarchy: nil, semantic_tokens: nil, moniker: nil, type_hierarchy: nil, inline_value: nil, inlay_hint: nil, diagnostic: nil)
+        def initialize(synchronization: nil, completion: nil, hover: nil, signature_help: nil, declaration: nil,
+                       definition: nil, type_definition: nil, implementation: nil, references: nil, document_highlight: nil, document_symbol: nil, code_action: nil, code_lens: nil, document_link: nil, color_provider: nil, formatting: nil, range_formatting: nil, on_type_formatting: nil, rename: nil, publish_diagnostics: nil, folding_range: nil, selection_range: nil, linked_editing_range: nil, call_hierarchy: nil, semantic_tokens: nil, moniker: nil, type_hierarchy: nil, inline_value: nil, inlay_hint: nil, diagnostic: nil)
           @attributes = {}
 
           @attributes[:synchronization] = synchronization if synchronization
@@ -288,8 +289,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

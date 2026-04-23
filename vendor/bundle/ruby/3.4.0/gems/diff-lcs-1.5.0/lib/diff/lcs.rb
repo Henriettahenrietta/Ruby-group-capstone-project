@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-module Diff; end unless defined? Diff # rubocop:disable Style/Documentation
+module Diff; end unless defined? Diff
 
 # == How Diff Works (by Mark-Jason Dominus)
 #
@@ -49,13 +47,13 @@ module Diff; end unless defined? Diff # rubocop:disable Style/Documentation
 #          a x b y c z p d q
 #    a b c a x b y c z
 module Diff::LCS
-  VERSION = '1.5.0'
+  VERSION = '1.5.0'.freeze
 end
 
 require 'diff/lcs/callbacks'
 require 'diff/lcs/internals'
 
-module Diff::LCS # rubocop:disable Style/Documentation
+module Diff::LCS
   # Returns an Array containing the longest common subsequence(s) between
   # +self+ and +other+. See Diff::LCS#lcs.
   #
@@ -67,32 +65,33 @@ module Diff::LCS # rubocop:disable Style/Documentation
   # identically for key purposes. That is:
   #
   #   O.new('a').eql?(O.new('a')) == true
-  def lcs(other, &block) #:yields self[i] if there are matched subsequences:
-    Diff::LCS.lcs(self, other, &block)
+  # :yields self[i] if there are matched subsequences:
+  def lcs(other, &)
+    Diff::LCS.lcs(self, other, &)
   end
 
   # Returns the difference set between +self+ and +other+. See Diff::LCS#diff.
-  def diff(other, callbacks = nil, &block)
-    Diff::LCS.diff(self, other, callbacks, &block)
+  def diff(other, callbacks = nil, &)
+    Diff::LCS.diff(self, other, callbacks, &)
   end
 
   # Returns the balanced ("side-by-side") difference set between +self+ and
   # +other+. See Diff::LCS#sdiff.
-  def sdiff(other, callbacks = nil, &block)
-    Diff::LCS.sdiff(self, other, callbacks, &block)
+  def sdiff(other, callbacks = nil, &)
+    Diff::LCS.sdiff(self, other, callbacks, &)
   end
 
   # Traverses the discovered longest common subsequences between +self+ and
   # +other+. See Diff::LCS#traverse_sequences.
-  def traverse_sequences(other, callbacks = nil, &block)
-    Diff::LCS.traverse_sequences(self, other, callbacks || Diff::LCS::SequenceCallbacks, &block)
+  def traverse_sequences(other, callbacks = nil, &)
+    Diff::LCS.traverse_sequences(self, other, callbacks || Diff::LCS::SequenceCallbacks, &)
   end
 
   # Traverses the discovered longest common subsequences between +self+ and
   # +other+ using the alternate, balanced algorithm. See
   # Diff::LCS#traverse_balanced.
-  def traverse_balanced(other, callbacks = nil, &block)
-    Diff::LCS.traverse_balanced(self, other, callbacks || Diff::LCS::BalancedCallbacks, &block)
+  def traverse_balanced(other, callbacks = nil, &)
+    Diff::LCS.traverse_balanced(self, other, callbacks || Diff::LCS::BalancedCallbacks, &)
   end
 
   # Attempts to patch +self+ with the provided +patchset+. A new sequence based
@@ -141,10 +140,11 @@ module Diff::LCS # rubocop:disable Style/Documentation
 end
 
 class << Diff::LCS
-  def lcs(seq1, seq2, &block) #:yields seq1[i] for each matched:
+  # :yields seq1[i] for each matched:
+  def lcs(seq1, seq2, &block)
     matches = Diff::LCS::Internals.lcs(seq1, seq2)
     ret = []
-    string = seq1.kind_of? String
+    string = seq1.is_a? String
     matches.each_with_index do |_e, i|
       next if matches[i].nil?
 
@@ -165,8 +165,9 @@ class << Diff::LCS
   # Class argument is provided for +callbacks+, #diff will attempt to
   # initialise it. If the +callbacks+ object (possibly initialised) responds to
   # #finish, it will be called.
-  def diff(seq1, seq2, callbacks = nil, &block) # :yields diff changes:
-    diff_traversal(:diff, seq1, seq2, callbacks || Diff::LCS::DiffCallbacks, &block)
+  # :yields diff changes:
+  def diff(seq1, seq2, callbacks = nil, &)
+    diff_traversal(:diff, seq1, seq2, callbacks || Diff::LCS::DiffCallbacks, &)
   end
 
   # #sdiff computes all necessary components to show two sequences and their
@@ -197,8 +198,9 @@ class << Diff::LCS
   #       # insert
   #     end
   #   end
-  def sdiff(seq1, seq2, callbacks = nil, &block) #:yields diff changes:
-    diff_traversal(:sdiff, seq1, seq2, callbacks || Diff::LCS::SDiffCallbacks, &block)
+  # :yields diff changes:
+  def sdiff(seq1, seq2, callbacks = nil, &)
+    diff_traversal(:sdiff, seq1, seq2, callbacks || Diff::LCS::SDiffCallbacks, &)
   end
 
   # #traverse_sequences is the most general facility provided by this module;
@@ -282,12 +284,13 @@ class << Diff::LCS
   # <tt>callbacks#discard_b</tt> will be called after the end of the sequence
   # is reached, if +a+ has not yet reached the end of +A+ or +b+ has not yet
   # reached the end of +B+.
-  def traverse_sequences(seq1, seq2, callbacks = Diff::LCS::SequenceCallbacks) #:yields change events:
+  # :yields change events:
+  def traverse_sequences(seq1, seq2, callbacks = Diff::LCS::SequenceCallbacks)
     callbacks ||= Diff::LCS::SequenceCallbacks
     matches = Diff::LCS::Internals.lcs(seq1, seq2)
 
     run_finished_a = run_finished_b = false
-    string = seq1.kind_of?(String)
+    string = seq1.is_a?(String)
 
     a_size = seq1.size
     b_size = seq2.size
@@ -380,14 +383,14 @@ class << Diff::LCS
         ai += 1
       end
 
-      if bj < b_size
-        ax = string ? seq1[ai, 1] : seq1[ai]
-        bx = string ? seq2[bj, 1] : seq2[bj]
-        event = Diff::LCS::ContextChange.new('+', ai, ax, bj, bx)
-        event = yield event if block_given?
-        callbacks.discard_b(event)
-        bj += 1
-      end
+      next unless bj < b_size
+
+      ax = string ? seq1[ai, 1] : seq1[ai]
+      bx = string ? seq2[bj, 1] : seq2[bj]
+      event = Diff::LCS::ContextChange.new('+', ai, ax, bj, bx)
+      event = yield event if block_given?
+      callbacks.discard_b(event)
+      bj += 1
     end
   end
 
@@ -478,7 +481,7 @@ class << Diff::LCS
     b_size = seq2.size
     ai = bj = mb = 0
     ma = -1
-    string = seq1.kind_of?(String)
+    string = seq1.is_a?(String)
 
     # Process all the lines in the match vector.
     loop do
@@ -576,9 +579,9 @@ class << Diff::LCS
     end
   end
 
-  PATCH_MAP = { #:nodoc:
-    :patch => { '+' => '+', '-' => '-', '!' => '!', '=' => '=' }.freeze,
-    :unpatch => { '+' => '-', '-' => '+', '!' => '!', '=' => '=' }.freeze
+  PATCH_MAP = { # :nodoc:
+    patch: { '+' => '+', '-' => '-', '!' => '!', '=' => '=' }.freeze,
+    unpatch: { '+' => '-', '-' => '+', '!' => '!', '=' => '=' }.freeze
   }.freeze
 
   # Applies a +patchset+ to the sequence +src+ according to the +direction+
@@ -627,7 +630,7 @@ class << Diff::LCS
 
     return src.respond_to?(:dup) ? src.dup : src unless has_changes
 
-    string = src.kind_of?(String)
+    string = src.is_a?(String)
     # Start with a new empty type of the source's class
     res = src.class.new
 

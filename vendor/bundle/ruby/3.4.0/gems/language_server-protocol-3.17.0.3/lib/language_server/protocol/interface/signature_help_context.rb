@@ -6,7 +6,7 @@ module LanguageServer
       # was triggered.
       #
       class SignatureHelpContext
-        def initialize(trigger_kind:, trigger_character: nil, is_retrigger:, active_signature_help: nil)
+        def initialize(trigger_kind:, is_retrigger:, trigger_character: nil, active_signature_help: nil)
           @attributes = {}
 
           @attributes[:triggerKind] = trigger_kind
@@ -65,8 +65,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

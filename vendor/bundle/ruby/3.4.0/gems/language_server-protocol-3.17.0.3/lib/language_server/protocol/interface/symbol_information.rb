@@ -6,7 +6,7 @@ module LanguageServer
       # interfaces etc.
       #
       class SymbolInformation
-        def initialize(name:, kind:, tags: nil, deprecated: nil, location:, container_name: nil)
+        def initialize(name:, kind:, location:, tags: nil, deprecated: nil, container_name: nil)
           @attributes = {}
 
           @attributes[:name] = name
@@ -84,8 +84,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

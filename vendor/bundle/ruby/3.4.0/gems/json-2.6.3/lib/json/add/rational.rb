@@ -1,7 +1,4 @@
-#frozen_string_literal: false
-unless defined?(::JSON::JSON_LOADED) and ::JSON::JSON_LOADED
-  require 'json'
-end
+require 'json' unless defined?(JSON::JSON_LOADED) and JSON::JSON_LOADED
 
 class Rational
   # Deserializes JSON string by converting numerator value <tt>n</tt>,
@@ -15,13 +12,13 @@ class Rational
   def as_json(*)
     {
       JSON.create_id => self.class.name,
-      'n'            => numerator,
-      'd'            => denominator,
+      'n' => numerator,
+      'd' => denominator
     }
   end
 
   # Stores class name (Rational) along with numerator value <tt>n</tt> and denominator value <tt>d</tt> as JSON string
-  def to_json(*args)
-    as_json.to_json(*args)
+  def to_json(*)
+    as_json.to_json(*)
   end
 end

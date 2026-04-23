@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class Diagnostic
-        def initialize(range:, severity: nil, code: nil, code_description: nil, source: nil, message:, tags: nil, related_information: nil, data: nil)
+        def initialize(range:, message:, severity: nil, code: nil, code_description: nil, source: nil, tags: nil,
+                       related_information: nil, data: nil)
           @attributes = {}
 
           @attributes[:range] = range
@@ -101,8 +102,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

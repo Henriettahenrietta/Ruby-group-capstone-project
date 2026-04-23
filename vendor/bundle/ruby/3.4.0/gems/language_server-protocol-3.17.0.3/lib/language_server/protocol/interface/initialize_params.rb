@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class InitializeParams
-        def initialize(work_done_token: nil, process_id:, client_info: nil, locale: nil, root_path: nil, root_uri:, initialization_options: nil, capabilities:, trace: nil, workspace_folders: nil)
+        def initialize(process_id:, root_uri:, capabilities:, work_done_token: nil, client_info: nil, locale: nil, root_path: nil,
+                       initialization_options: nil, trace: nil, workspace_folders: nil)
           @attributes = {}
 
           @attributes[:workDoneToken] = work_done_token if work_done_token
@@ -119,8 +120,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end

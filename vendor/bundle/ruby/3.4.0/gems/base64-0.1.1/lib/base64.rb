@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 #
 # = base64.rb: methods for base64-encoding and -decoding strings
 #
@@ -36,7 +35,7 @@ module Base64
   #    Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g
   #    UnVieQ==
   def encode64(bin)
-    [bin].pack("m")
+    [bin].pack('m')
   end
 
   # Returns the Base64-decoded version of +str+.
@@ -56,14 +55,14 @@ module Base64
   #    This is line three
   #    And so on...
   def decode64(str)
-    str.unpack1("m")
+    str.unpack1('m')
   end
 
   # Returns the Base64-encoded version of +bin+.
   # This method complies with RFC 4648.
   # No line feeds are added.
   def strict_encode64(bin)
-    [bin].pack("m0")
+    [bin].pack('m0')
   end
 
   # Returns the Base64-decoded version of +str+.
@@ -71,7 +70,7 @@ module Base64
   # ArgumentError is raised if +str+ is incorrectly padded or contains
   # non-alphabet characters.  Note that CR or LF are also rejected.
   def strict_decode64(str)
-    str.unpack1("m0")
+    str.unpack1('m0')
   end
 
   # Returns the Base64-encoded version of +bin+.
@@ -82,8 +81,8 @@ module Base64
   # You can remove the padding by setting +padding+ as false.
   def urlsafe_encode64(bin, padding: true)
     str = strict_encode64(bin)
-    str.chomp!("==") or str.chomp!("=") unless padding
-    str.tr!("+/", "-_")
+    str.chomp!('==') or str.chomp!('=') unless padding
+    str.tr!('+/', '-_')
     str
   end
 
@@ -99,11 +98,11 @@ module Base64
     # NOTE: RFC 4648 does say nothing about unpadded input, but says that
     # "the excess pad characters MAY also be ignored", so it is inferred that
     # unpadded input is also acceptable.
-    if !str.end_with?("=") && str.length % 4 != 0
-      str = str.ljust((str.length + 3) & ~3, "=")
-      str.tr!("-_", "+/")
+    if !str.end_with?('=') && str.length % 4 != 0
+      str = str.ljust((str.length + 3) & ~3, '=')
+      str.tr!('-_', '+/')
     else
-      str = str.tr("-_", "+/")
+      str = str.tr('-_', '+/')
     end
     strict_decode64(str)
   end

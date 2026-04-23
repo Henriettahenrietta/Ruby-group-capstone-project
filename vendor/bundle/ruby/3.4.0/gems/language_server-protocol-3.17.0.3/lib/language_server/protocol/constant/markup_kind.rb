@@ -12,11 +12,11 @@ module LanguageServer
         #
         # Plain text is supported as a content format
         #
-        PLAIN_TEXT = 'plaintext'
+        PLAIN_TEXT = 'plaintext'.freeze
         #
         # Markdown is supported as a content format
         #
-        MARKDOWN = 'markdown'
+        MARKDOWN = 'markdown'.freeze
       end
     end
   end

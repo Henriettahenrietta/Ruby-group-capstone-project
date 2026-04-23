@@ -2,7 +2,8 @@ module LanguageServer
   module Protocol
     module Interface
       class FoldingRangeClientCapabilities
-        def initialize(dynamic_registration: nil, range_limit: nil, line_folding_only: nil, folding_range_kind: nil, folding_range: nil)
+        def initialize(dynamic_registration: nil, range_limit: nil, line_folding_only: nil, folding_range_kind: nil,
+                       folding_range: nil)
           @attributes = {}
 
           @attributes[:dynamicRegistration] = dynamic_registration if dynamic_registration
@@ -67,8 +68,8 @@ module LanguageServer
           attributes
         end
 
-        def to_json(*args)
-          to_hash.to_json(*args)
+        def to_json(*)
+          to_hash.to_json(*)
         end
       end
     end
