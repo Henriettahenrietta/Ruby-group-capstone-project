@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'item'
 
 # Book class represents a book item and inherits archiving behavior from Item
@@ -15,7 +17,7 @@ class Book < Item
 
   # A book can be archived if the publish date is old enough or the cover is bad
   def can_be_archived?
-    super || @cover_state == "bad"
+    super || @cover_state == 'bad'
   end
 
   # Format book details for console display

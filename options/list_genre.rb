@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ListGenres
   def list_genres
     puts "\nGENRES LIST:\n"

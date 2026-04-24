@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../classes/book'
 require_relative '../classes/item'
 require 'date'
@@ -6,14 +8,14 @@ RSpec.describe Book do
   describe 'inheritance' do
     it 'inherits from Item class' do
       book = Book.new(1, 'The Hobbit', 'J.R.R. Tolkien', 'Allen & Unwin', '2015-01-01')
-      
+
       expect(book).to be_an_instance_of(Book)
       expect(book).to be_a(Item)
     end
 
     it 'has all Item properties' do
       book = Book.new(1, 'The Hobbit', 'J.R.R. Tolkien', 'Allen & Unwin', '2015-01-01')
-      
+
       expect(book).to respond_to(:id)
       expect(book).to respond_to(:publish_date)
       expect(book).to respond_to(:archived)
@@ -33,7 +35,7 @@ RSpec.describe Book do
           5,
           false
         )
-        
+
         expect(book.id).to eq(1)
         expect(book.title).to eq('The Great Gatsby')
         expect(book.author).to eq('F. Scott Fitzgerald')
@@ -48,19 +50,19 @@ RSpec.describe Book do
     context 'with minimal parameters' do
       it 'creates a book with default cover_state' do
         book = Book.new(2, 'To Kill a Mockingbird', 'Harper Lee', 'Lippincott', '2021-06-20')
-        
+
         expect(book.cover_state).to eq('good')
       end
 
       it 'creates a book with default label_id as nil' do
         book = Book.new(3, '1984', 'George Orwell', 'Secker & Warburg', '2019-05-10')
-        
+
         expect(book.label_id).to be_nil
       end
 
       it 'creates a book with default archived status as false' do
         book = Book.new(4, 'Brave New World', 'Aldous Huxley', 'Chatto & Windus', '2018-03-01')
-        
+
         expect(book.archived).to be(false)
       end
     end
@@ -93,21 +95,21 @@ RSpec.describe Book do
       it 'returns true if item is old (>10 years) regardless of cover' do
         old_date = (Date.today - (365 * 11)).to_s # 11 years ago
         book = Book.new(1, 'Old Book', 'Author', 'Publisher', old_date, 'damaged')
-        
+
         expect(book.can_be_archived?).to be(true)
       end
 
       it 'returns true if cover is bad regardless of age' do
         recent_date = (Date.today - 365).to_s # 1 year ago
         book = Book.new(1, 'Recent Book', 'Author', 'Publisher', recent_date, 'bad')
-        
+
         expect(book.can_be_archived?).to be(true)
       end
 
       it 'returns true if item is very old and cover is bad' do
         very_old_date = '2000-01-01'
         book = Book.new(1, 'Very Old Book', 'Author', 'Publisher', very_old_date, 'bad')
-        
+
         expect(book.can_be_archived?).to be(true)
       end
     end
@@ -116,23 +118,23 @@ RSpec.describe Book do
       it 'returns false if book is recent and cover is good' do
         recent_date = (Date.today - 365).to_s # 1 year ago
         book = Book.new(1, 'Recent Book', 'Author', 'Publisher', recent_date, 'good')
-        
+
         expect(book.can_be_archived?).to be(false)
       end
 
       it 'returns false if book is recent and cover is acceptable' do
         recent_date = (Date.today - (365 * 5)).to_s # 5 years ago
         book = Book.new(1, 'Recent Book', 'Author', 'Publisher', recent_date, 'acceptable')
-        
+
         expect(book.can_be_archived?).to be(false)
       end
 
       it 'returns false if book is 9 years old and cover is good' do
         nine_years_ago = (Date.today - (365 * 9)).to_s
         book = Book.new(1, 'Nine Year Book', 'Author', 'Publisher', nine_years_ago, 'good')
-        
+
         expect(book.can_be_archived?).to be(false)
-        
+
         expect(book.can_be_archived?).to be(false)
       end
     end
@@ -142,7 +144,7 @@ RSpec.describe Book do
         recent_date = (Date.today - 365).to_s # 1 year ago
         item = Item.new(1, recent_date)
         book = Book.new(1, 'Book', 'Author', 'Pub', recent_date, 'bad')
-        
+
         expect(item.can_be_archived?).to be(false)
         expect(book.can_be_archived?).to be(true)
       end
@@ -152,9 +154,9 @@ RSpec.describe Book do
   describe '#display' do
     it 'returns formatted string for active book' do
       book = Book.new(1, 'The Hobbit', 'J.R.R. Tolkien', 'Allen & Unwin', '2015-01-01', 'good', nil, false)
-      
+
       display = book.display
-      
+
       expect(display).to include('[ACTIVE]')
       expect(display).to include('1')
       expect(display).to include('The Hobbit')
@@ -165,9 +167,9 @@ RSpec.describe Book do
 
     it 'returns formatted string for archived book' do
       book = Book.new(2, '1984', 'George Orwell', 'Secker & Warburg', '2020-01-01', 'good', nil, true)
-      
+
       display = book.display
-      
+
       expect(display).to include('[ARCHIVED]')
       expect(display).to include('1984')
       expect(display).to include('George Orwell')
@@ -175,9 +177,9 @@ RSpec.describe Book do
 
     it 'includes all book information in display' do
       book = Book.new(5, 'Pride and Prejudice', 'Jane Austen', 'T. Egerton', '2019-06-15', 'acceptable')
-      
+
       display = book.display
-      
+
       expect(display).to include('ID: 5')
       expect(display).to include('Pride and Prejudice')
       expect(display).to include('by Jane Austen')
@@ -189,9 +191,9 @@ RSpec.describe Book do
   describe '#to_h' do
     it 'converts book to hash with all properties' do
       book = Book.new(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Scribner', '2020-01-15', 'good', 5, false)
-      
+
       hash = book.to_h
-      
+
       expect(hash).to be_a(Hash)
       expect(hash[:id]).to eq(1)
       expect(hash[:title]).to eq('The Great Gatsby')
@@ -205,25 +207,25 @@ RSpec.describe Book do
 
     it 'includes inherited Item properties in hash' do
       book = Book.new(2, 'Test', 'Author', 'Pub', '2020-01-01', 'good', nil, true)
-      
+
       hash = book.to_h
-      
+
       expect(hash.keys).to include(:id, :publish_date, :archived)
     end
 
     it 'includes book-specific properties in hash' do
       book = Book.new(3, 'Test Book', 'Author', 'Publisher', '2020-01-01')
-      
+
       hash = book.to_h
-      
+
       expect(hash.keys).to include(:title, :author, :publisher, :cover_state, :label_id)
     end
 
     it 'preserves nil values for optional properties' do
       book = Book.new(1, 'Test', 'Author', 'Pub', '2020-01-01', 'good', nil)
-      
+
       hash = book.to_h
-      
+
       expect(hash[:label_id]).to be_nil
     end
   end
@@ -240,9 +242,9 @@ RSpec.describe Book do
         'label_id' => 2,
         'archived' => false
       }
-      
+
       book = Book.from_h(data)
-      
+
       expect(book.id).to eq(1)
       expect(book.title).to eq('The Hobbit')
       expect(book.author).to eq('J.R.R. Tolkien')
@@ -261,9 +263,9 @@ RSpec.describe Book do
         'publisher' => 'Pub',
         'publish_date' => '2020-01-01'
       }
-      
+
       book = Book.from_h(data)
-      
+
       expect(book.cover_state).to eq('good')
     end
 
@@ -276,9 +278,9 @@ RSpec.describe Book do
         'publish_date' => '2020-01-01',
         'cover_state' => 'good'
       }
-      
+
       book = Book.from_h(data)
-      
+
       expect(book.label_id).to be_nil
     end
 
@@ -290,9 +292,9 @@ RSpec.describe Book do
         'publisher' => 'Pub',
         'publish_date' => '2020-01-01'
       }
-      
+
       book = Book.from_h(data)
-      
+
       expect(book.archived).to be(false)
     end
   end

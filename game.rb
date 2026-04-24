@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'item'
 
 class Game < Item
   attr_accessor :title, :author_id, :genre_id, :multiplayer, :last_played_at
 
-  def initialize(id, title, author_id, genre_id, publish_date, multiplayer = false, last_played_at = nil, archived = false)
+  def initialize(id, title, author_id, genre_id, publish_date, multiplayer = false, last_played_at = nil,
+                 archived = false)
     super(id, publish_date, archived)
     @title = title
     @author_id = author_id
@@ -23,12 +26,12 @@ class Game < Item
 
   def to_h
     super.merge({
-      title: @title,
-      author_id: @author_id,
-      genre_id: @genre_id,
-      multiplayer: @multiplayer,
-      last_played_at: @last_played_at
-    })
+                  title: @title,
+                  author_id: @author_id,
+                  genre_id: @genre_id,
+                  multiplayer: @multiplayer,
+                  last_played_at: @last_played_at
+                })
   end
 
   def self.from_h(data)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'item'
 
 class Movie < Item
@@ -22,11 +24,11 @@ class Movie < Item
 
   def to_h
     super.merge({
-      title: @title,
-      director: @director,
-      genre_id: @genre_id,
-      silent: @silent
-    })
+                  title: @title,
+                  director: @director,
+                  genre_id: @genre_id,
+                  silent: @silent
+                })
   end
 
   def self.from_h(data)

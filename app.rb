@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './store_data'
 require './load_data'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'date'
 require_relative 'classes/item'
@@ -221,7 +223,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL BOOKS'.center(28)
     puts '=' * 28
     @books.each { |book| puts book.display }
@@ -236,7 +238,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL LABELS'.center(28)
     puts '=' * 28
     @labels.each { |label| puts label.display }
@@ -251,7 +253,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL GENRES'.center(28)
     puts '=' * 28
     @genres.each { |genre| puts "ID: #{genre.id} | Name: #{genre.name}" }
@@ -266,7 +268,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL AUTHORS'.center(28)
     puts '=' * 28
     @authors.each { |author| puts "ID: #{author.id} | Name: #{author.first_name} #{author.last_name}" }
@@ -281,7 +283,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL SOURCES'.center(28)
     puts '=' * 28
     @sources.each { |source| puts "ID: #{source.id} | Name: #{source.name}" }
@@ -296,7 +298,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL MUSIC ALBUMS'.center(28)
     puts '=' * 28
     @music_albums.each { |album| puts album.display }
@@ -311,7 +313,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL MOVIES'.center(28)
     puts '=' * 28
     @movies.each { |movie| puts movie.display }
@@ -326,7 +328,7 @@ class CatalogApp
       return
     end
 
-    puts "\n" + '=' * 28
+    puts "\n#{'=' * 28}"
     puts 'ALL GAMES'.center(28)
     puts '=' * 28
     @games.each { |game| puts game.display }
@@ -663,7 +665,7 @@ class CatalogApp
 
   # Print the main application menu
   def display_menu
-    puts "\n" + '=' * 20
+    puts "\n#{'=' * 20}"
     puts 'CATALOG MANAGEMENT SYSTEM'.center(20)
     puts '=' * 20
     puts 'List Items:'

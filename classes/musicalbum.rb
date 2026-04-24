@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'date'
 require_relative 'item'
 
@@ -5,7 +7,8 @@ class MusicAlbum < Item
   attr_accessor :id, :artist, :on_spotify, :genre_id, :source_id, :label_id
   attr_reader :title
 
-  def initialize(id, title, artist, genre_id, publish_date, on_spotify = false, source_id = nil, label_id = nil, archived = false)
+  def initialize(id, title, artist, genre_id, publish_date, on_spotify = false, source_id = nil, label_id = nil,
+                 archived = false)
     super(id, publish_date, archived)
     @title = title
     @artist = artist
@@ -23,20 +26,20 @@ class MusicAlbum < Item
   end
 
   def display
-    status = @archived ? "[ARCHIVED]" : "[ACTIVE]"
-    spotify = @on_spotify ? "Spotify" : "Not on Spotify"
+    status = @archived ? '[ARCHIVED]' : '[ACTIVE]'
+    spotify = @on_spotify ? 'Spotify' : 'Not on Spotify'
     "#{status} ID: #{@id} | #{@title} by #{@artist} | #{spotify}"
   end
 
   def to_h
     super.merge({
-      title: @title,
-      artist: @artist,
-      on_spotify: @on_spotify,
-      genre_id: @genre_id,
-      source_id: @source_id,
-      label_id: @label_id
-    })
+                  title: @title,
+                  artist: @artist,
+                  on_spotify: @on_spotify,
+                  genre_id: @genre_id,
+                  source_id: @source_id,
+                  label_id: @label_id
+                })
   end
 
   def self.from_h(data)

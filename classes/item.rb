@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'date'
 
 # Item is the base class for items that can be archived

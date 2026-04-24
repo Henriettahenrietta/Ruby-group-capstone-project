@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'item'
 
 class MusicAlbum < Item
@@ -22,11 +24,11 @@ class MusicAlbum < Item
 
   def to_h
     super.merge({
-      title: @title,
-      artist: @artist,
-      genre_id: @genre_id,
-      on_spotify: @on_spotify
-    })
+                  title: @title,
+                  artist: @artist,
+                  genre_id: @genre_id,
+                  on_spotify: @on_spotify
+                })
   end
 
   def self.from_h(data)

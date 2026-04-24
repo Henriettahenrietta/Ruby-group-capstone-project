@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './options/add_props'
 require './classes/musicalbum'
 
