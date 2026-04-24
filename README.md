@@ -32,11 +32,11 @@ A comprehensive Ruby console application for managing a personal catalog of book
 - Label, Genre, Author, Source have many Items (associations)
 - add_item method implemented in all classes to establish bidirectional relationships
 
-## Installation
+## Installationn
 
 ### Prerequisites
 
-- Ruby 2.5+ installed
+- Ruby 2.5+ installed.............
 - RSpec gem for testing (optional)
 
 ### Setup

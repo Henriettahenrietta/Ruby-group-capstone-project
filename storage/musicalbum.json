@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "artist": "Unknown",
+    "publish_date": "2025-07-28",
+    "on_spotify": true,
+    "genre_name": null,
+    "archived": false,
+    "label": null,
+    "genre": null,
+    "author": {
+      "id": 248
+    }
+  }
+]

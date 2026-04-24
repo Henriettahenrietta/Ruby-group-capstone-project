@@ -51,7 +51,7 @@ PLATFORMS
 
 DEPENDENCIES
   rspec
-  rubocop (< 2.0)
+  rubocop (= 1.57.1)
 
 BUNDLED WITH
    2.4.20

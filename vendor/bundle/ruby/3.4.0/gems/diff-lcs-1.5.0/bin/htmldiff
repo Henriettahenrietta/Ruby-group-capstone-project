@@ -1,0 +1,34 @@
+#! /usr/bin/env ruby -w
+require 'English'
+require 'diff/lcs'
+require 'diff/lcs/htmldiff'
+
+begin
+  require 'text/format'
+rescue LoadError
+  Diff::LCS::HTMLDiff.can_expand_tabs = false
+end
+
+if ARGV.size < 2 or ARGV.size > 3
+  warn "usage: #{File.basename($PROGRAM_NAME)} old new [output.html]"
+  warn "       #{File.basename($PROGRAM_NAME)} old new > output.html"
+  exit 127
+end
+
+left = File.read(ARGV[0]).split($INPUT_RECORD_SEPARATOR)
+right = File.read(ARGV[1]).split($INPUT_RECORD_SEPARATOR)
+
+options = { title: "diff #{ARGV[0]} #{ARGV[1]}" }
+
+htmldiff = Diff::LCS::HTMLDiff.new(left, right, options)
+
+if ARGV[2]
+  File.open(ARGV[2], 'w') do |f|
+    htmldiff.options[:output] = f
+    htmldiff.run
+  end
+else
+  htmldiff.run
+end
+
+# vim: ft=ruby

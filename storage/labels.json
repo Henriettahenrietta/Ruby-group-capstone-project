@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": 309,
+    "title": "Drawing",
+    "color": "Blue"
+  },
+  {
+    "id": 777,
+    "title": "Judge of the jungle",
+    "color": "Brown"
+  },
+  {
+    "id": 414,
+    "title": "My mom",
+    "color": "black and white"
+  },
+  {
+    "id": 863,
+    "title": "ABC game",
+    "color": "blue"
+  }
+]
