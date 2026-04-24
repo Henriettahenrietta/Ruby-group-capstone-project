@@ -753,7 +753,11 @@ class CatalogApp
   end
 end
 
+<<<<<<< HEAD
 if __FILE__ == $PROGRAM_NAME
   app = CatalogApp.new
   app.run
 end
+=======
+main
+>>>>>>> 66b720bbb0994a35d4bce1cbed70b0b079c6e9fc

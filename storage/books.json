@@ -1,28 +1,23 @@
 [
   {
-    "id": 1,
-    "publish_date": "2020-01-15",
-    "archived": true,
-    "title": "The Great Gatsby",
-    "author": "F. Scott Fitzgerald",
-    "publisher": "Scribner",
-    "cover_state": "good",
-    "label_id": null
+    "publisher": "HenrittaIsange",
+    "cover_state": "bad",
+    "publish_date": "2026-03-12",
+    "archived": false,
+    "label": null,
+    "genre": {
+      "id": 614
+    },
+    "author": {
+      "id": 193
+    }
   },
   {
-    "id": 2,
-    "publish_date": "2021-06-20",
-    "archived": false,
-    "title": "To Kill a Mockingbird",
-    "author": "Harper Lee",
-    "publisher": "Lippincott",
+    "publisher": "Mary",
     "cover_state": "good",
-    "label_id": null
-  },
-  {
-    "id": 3,
-    "publish_date": "2009-05-21",
+    "publish_date": "2026-04-17",
     "archived": false,
+<<<<<<< HEAD
     "title": "After",
     "author": "Henrietta",
     "publisher": "Fongwan",
@@ -48,5 +43,14 @@
     "publisher": "Hen",
     "cover_state": "acceptable",
     "label_id": 1
+=======
+    "label": null,
+    "genre": {
+      "id": 555
+    },
+    "author": {
+      "id": 381
+    }
+>>>>>>> 66b720bbb0994a35d4bce1cbed70b0b079c6e9fc
   }
 ]

@@ -1,171 +1,61 @@
-# frozen_string_literal: true
-
-require_relative '../classes/item'
 require 'date'
+require_relative '../classes/item'
 
 RSpec.describe Item do
   describe '#initialize' do
-    context 'with valid parameters' do
-      it 'creates an item with id, publish_date, and archived status' do
-        item = Item.new(1, '2020-01-15')
+    it 'parses publish_date string into Date' do
+      item = Item.new('2020-01-15')
 
-        expect(item.id).to eq(1)
-        expect(item.publish_date).to eq('2020-01-15')
-        expect(item.archived).to eq(false)
-      end
-
-      it 'sets archived to true when explicitly provided' do
-        item = Item.new(2, '2019-05-10', true)
-
-        expect(item.archived).to eq(true)
-      end
-
-      it 'defaults archived to false when not provided' do
-        item = Item.new(3, '2021-12-25')
-
-        expect(item.archived).to be(false)
-      end
+      expect(item.publish_date).to eq(Date.parse('2020-01-15'))
+      expect(item.archived).to be(false)
+      expect(item.id).to be_a(Integer)
     end
 
-    context 'with edge cases' do
-      it 'accepts different date formats' do
-        item = Item.new(4, '2015-01-01')
+    it 'sets archived to true when passed as keyword argument' do
+      item = Item.new('2019-05-10', archived: true)
 
-        expect(item.publish_date).to eq('2015-01-01')
-      end
-    end
-  end
-
-  describe '#can_be_archived?' do
-    context 'when item is published more than 10 years ago' do
-      it 'returns true for items published more than 10 years ago' do
-        old_date = (Date.today - (365 * 11)).to_s # 11 years ago
-        item = Item.new(1, old_date)
-
-        expect(item.can_be_archived?).to be(true)
-      end
-
-      it 'returns true for items published many years ago' do
-        very_old_date = '2000-01-01'
-        item = Item.new(1, very_old_date)
-
-        expect(item.can_be_archived?).to be(true)
-      end
+      expect(item.archived).to be(true)
     end
 
-    context 'when item is published recently' do
-      it 'returns false for items published recently' do
-        recent_date = (Date.today - (365 * 5)).to_s # 5 years ago
-        item = Item.new(1, recent_date)
+    it 'sets publish_date to nil for invalid date string' do
+      item = Item.new('invalid-date')
 
-        expect(item.can_be_archived?).to be(false)
-      end
-
-      it 'returns false for items published 9 years ago' do
-        nine_years_ago = (Date.today - (365 * 9)).to_s
-        item = Item.new(1, nine_years_ago)
-
-        expect(item.can_be_archived?).to be(false)
-      end
-
-      it 'returns true for items published exactly 1 day ago' do
-        one_day_ago = (Date.today - 1).to_s
-        item = Item.new(1, one_day_ago)
-
-        # Days since publish should be >= 1
-        expect(item.can_be_archived?).to be(true)
-      end
+      expect(item.publish_date).to be_nil
     end
   end
 
   describe '#move_to_archive' do
-    context 'when item can be archived' do
-      it 'changes archived status to true' do
-        old_date = (Date.today - 5).to_s
-        item = Item.new(1, old_date, false)
+    it 'archives item older than 10 years' do
+      old_date = (Date.today << (12 * 11)).to_s
+      item = Item.new(old_date)
 
-        item.move_to_archive
+      item.move_to_archive
 
-        expect(item.archived).to be(true)
-      end
-
-      it 'returns true when successfully archived' do
-        old_date = (Date.today - 10).to_s
-        item = Item.new(1, old_date)
-
-        result = item.move_to_archive
-
-        expect(result).to be(true)
-      end
+      expect(item.archived).to be(true)
     end
 
-    context 'when item cannot be archived' do
-      it 'returns false if item is already archived' do
-        old_date = (Date.today - 5).to_s
-        item = Item.new(1, old_date, true)
+    it 'does not archive recent item' do
+      recent_date = Date.today.to_s
+      item = Item.new(recent_date)
 
-        result = item.move_to_archive
+      item.move_to_archive
 
-        expect(result).to be(false)
-      end
-
-      it 'returns false if publish date is too recent' do
-        recent_date = Date.today.to_s
-        item = Item.new(1, recent_date)
-
-        result = item.move_to_archive
-
-        expect(result).to be(false)
-      end
-
-      it 'does not change archived status if cannot be archived' do
-        recent_date = Date.today.to_s
-        item = Item.new(1, recent_date, false)
-
-        item.move_to_archive
-
-        expect(item.archived).to be(false)
-      end
-    end
-
-    context 'edge cases' do
-      it 'returns false when called twice on the same item' do
-        old_date = (Date.today - 5).to_s
-        item = Item.new(1, old_date)
-
-        first_call = item.move_to_archive
-        second_call = item.move_to_archive
-
-        expect(first_call).to be(true)
-        expect(second_call).to be(false)
-      end
+      expect(item.archived).to be(false)
     end
   end
 
-  describe '#to_h' do
-    it 'converts item to hash with all properties' do
-      item = Item.new(5, '2020-06-15', false)
+  describe 'private #can_be_archived?' do
+    it 'returns true for items older than 10 years' do
+      old_date = (Date.today << (12 * 11)).to_s
+      item = Item.new(old_date)
 
-      hash = item.to_h
-
-      expect(hash).to be_a(Hash)
-      expect(hash[:id]).to eq(5)
-      expect(hash[:publish_date]).to eq('2020-06-15')
-      expect(hash[:archived]).to be(false)
+      expect(item.send(:can_be_archived?)).to be(true)
     end
 
-    it 'includes archived status in hash' do
-      item = Item.new(1, '2019-01-01', true)
-      hash = item.to_h
+    it 'returns false for recent items' do
+      item = Item.new(Date.today.to_s)
 
-      expect(hash[:archived]).to be(true)
-    end
-
-    it 'returns a hash with all necessary keys' do
-      item = Item.new(10, '2021-03-10')
-      hash = item.to_h
-
-      expect(hash.keys).to include(:id, :publish_date, :archived)
+      expect(item.send(:can_be_archived?)).to be(false)
     end
   end
 end

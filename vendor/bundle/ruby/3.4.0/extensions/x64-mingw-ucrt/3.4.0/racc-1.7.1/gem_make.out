@@ -1,0 +1,21 @@
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/racc-1.7.1/ext/racc/cparse
+C:/Ruby34-x64/bin/ruby.exe extconf.rb
+checking for rb_block_call()... yes
+checking for rb_ary_subseq()... yes
+creating Makefile
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/racc-1.7.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-9jnugu sitelibdir\=./.gem.20260418-14908-9jnugu clean
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/racc-1.7.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-9jnugu sitelibdir\=./.gem.20260418-14908-9jnugu
+generating cparse-x64-mingw-ucrt.def
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/racc-1.7.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-9jnugu sitelibdir\=./.gem.20260418-14908-9jnugu install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20260418-14908-9jnugu/racc
+
+current directory: C:/Users/Henrietta Isange/Desktop/Ruby-group-capstone-project/vendor/bundle/ruby/3.4.0/gems/racc-1.7.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260418-14908-9jnugu sitelibdir\=./.gem.20260418-14908-9jnugu clean

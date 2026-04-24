@@ -1,11 +1,10 @@
-# frozen_string_literal: true
-
 require_relative 'item'
 
 class Genre
-  attr_accessor :id, :name, :items
+  attr_accessor :name, :items
+  attr_reader :id
 
-  def initialize(id, name)
+  def initialize(name, id = Random.rand(1..1000))
     @id = id
     @name = name
     @items = []
@@ -14,20 +13,5 @@ class Genre
   def add_item(item)
     @items << item
     item.genre = self
-  end
-
-  def display
-    "ID: #{@id} | Name: #{@name} | Items: #{@items.length}"
-  end
-
-  def to_h
-    {
-      id: @id,
-      name: @name
-    }
-  end
-
-  def self.from_h(data)
-    new(data['id'], data['name'])
   end
 end

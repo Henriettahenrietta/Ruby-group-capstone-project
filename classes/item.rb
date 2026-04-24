@@ -1,46 +1,48 @@
-# frozen_string_literal: true
-
 require 'date'
 
-# Item is the base class for items that can be archived
 class Item
-  attr_accessor :id, :publish_date, :archived, :label
+  attr_accessor :publish_date
+  attr_reader :id, :archived, :label, :author, :genre
 
-  def initialize(id, publish_date, archived = false)
-    @id = id
-    @publish_date = publish_date.to_s
+  def initialize(publish_date, archived: false)
+    @publish_date = parse_publish_date(publish_date)
     @archived = archived
+    @id = Random.rand(1...1000)
   end
 
-  # Determine whether the item is old enough to archive
-  def can_be_archived?
-    publish_date_obj = Date.parse(@publish_date)
-    days_since_publish = (Date.today - publish_date_obj).to_i
-    return false if days_since_publish < 1
-    return true if days_since_publish <= 10
-
-    years_since_publish = days_since_publish.to_f / 365.25
-    years_since_publish >= 10
+  def genre=(genre)
+    @genre = genre
+    genre.items << self unless genre.nil? || genre.items.include?(self)
   end
 
-  # Archive the item when conditions are met
+  def author=(author)
+    @author = author
+    author.items << self unless author.nil? || author.items.include?(self)
+  end
+
+  def label=(label)
+    @label = label
+    label.items << self unless label.nil? || label.items.include?(self)
+  end
+
   def move_to_archive
-    return false if @archived
-
-    if can_be_archived?
-      @archived = true
-      true
-    else
-      false
-    end
+    @archived = true if can_be_archived?
   end
 
-  # Convert item fields to a hash for JSON storage
-  def to_h
-    {
-      id: @id,
-      publish_date: @publish_date,
-      archived: @archived
-    }
+  private
+
+  def parse_publish_date(value)
+    return value if value.is_a?(Date)
+    return Date.parse(value) if value.is_a?(String)
+
+    nil
+  rescue Date::Error
+    nil
+  end
+
+  def can_be_archived?
+    return false if @publish_date.nil?
+
+    (Date.today.year - @publish_date.year) > 10
   end
 end

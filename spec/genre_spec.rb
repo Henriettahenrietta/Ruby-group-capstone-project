@@ -1,32 +1,47 @@
-# frozen_string_literal: true
+require './classes/genre'
+require './classes/item'
 
-require_relative '../genre'
+describe Genre do
+  before :all do
+    @genre_name = 'Rock'
+    @genre = Genre.new(@genre_name)
+    @item = Item.new '2022-12-12'
+  end
 
-RSpec.describe Genre do
-  describe '#initialize' do
-    it 'creates a genre with id and name' do
-      genre = Genre.new(1, 'Fiction')
+  context '#initialize' do
+    it 'sets the name correctly' do
+      expect(@genre.name).to eq(@genre_name)
+    end
 
-      expect(genre.id).to eq(1)
-      expect(genre.name).to eq('Fiction')
+    it 'initializes the items array' do
+      expect(@genre.items).to be_an(Array)
+      expect(@genre.items).to be_empty
+    end
+
+    it 'generates a random id' do
+      expect(@genre.instance_variable_get(:@id)).to be_an(Integer)
     end
   end
 
-  describe '#to_h' do
-    it 'returns a hash representation' do
-      genre = Genre.new(1, 'Fiction')
-
-      expect(genre.to_h).to eq({ id: 1, name: 'Fiction' })
+  context '#add_item' do
+    before :all do
+      @genre.add_item(@item)
     end
-  end
 
-  describe '.from_h' do
-    it 'creates a genre from hash' do
-      hash = { 'id' => 1, 'name' => 'Fiction' }
-      genre = Genre.from_h(hash)
+    it 'should have one item in @items array' do
+      expect(@genre.items.length).to eq 1
+    end
 
-      expect(genre.id).to eq(1)
-      expect(genre.name).to eq('Fiction')
+    it 'added item should be an instance of Item' do
+      expect(@genre.items[0]).to be_an_instance_of Item
+    end
+
+    it 'added item should be equal to @item' do
+      expect(@genre.items[0]).to eq @item
+    end
+
+    it "item's genre should be equal to @genre" do
+      expect(@item.genre).to eq @genre
     end
   end
 end
