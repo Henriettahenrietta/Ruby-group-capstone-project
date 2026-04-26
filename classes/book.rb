@@ -1,16 +1,17 @@
-class Author
-  attr_reader :id, :items
-  attr_accessor :first_name, :last_name
+require 'date'
 
-  def initialize(first_name, last_name, id = Random.rand(1..1000))
-    @id = id
-    @first_name = first_name
-    @last_name = last_name
-    @items = []
+class Book
+  attr_reader :publisher, :cover_state, :publish_date
+  attr_accessor :archived
+
+  def initialize(publisher, cover_state, publish_date)
+    @publisher = publisher
+    @cover_state = cover_state
+    @publish_date = Date.parse(publish_date)
+    @archived = false
   end
 
-  def add_item(item)
-    @items << item
-    item.add_author(self)
+  def can_be_archived?
+    Date.today.year - @publish_date.year > 10 || @cover_state.downcase == 'bad'
   end
 end
