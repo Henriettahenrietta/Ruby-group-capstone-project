@@ -20,7 +20,8 @@ module AddMusicAlbum
     @artist = gets.chomp
 
     @on_spotify = read_spotify_input
-    album = MusicAlbum.new(@artist, @publish_date, @on_spotify)
+
+    album = MusicAlbum.new(@publish_date, @on_spotify, nil, @artist)
     @music_albums << album
 
     choose_label(album)
@@ -29,8 +30,6 @@ module AddMusicAlbum
 
     puts "Album added successfully!\n"
   end
-<<<<<<< HEAD
-=======
 
   def read_spotify_input
     puts 'Available on Spotify? (Y/y/N/n):'
@@ -42,5 +41,4 @@ module AddMusicAlbum
       puts 'Provide valid input (Y/y/N/n)'
     end
   end
->>>>>>> 66b720bbb0994a35d4bce1cbed70b0b079c6e9fc
 end

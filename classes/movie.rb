@@ -1,60 +1,47 @@
 require 'date'
-require_relative 'item'
 
 class Movie < Item
-  attr_accessor :id, :title, :silent, :genre_id, :author_id, :source_id, :label_id
+  attr_accessor :title, :director, :silent,
+                :genre_id, :author_id, :source_id, :label_id
 
-  def initialize(id, title, publish_date, silent, *args)
-    options = args.last.is_a?(Hash) ? args.pop : {}
+  def initialize(*args, archived: false)
+    @id = args[0]
+    @title = args[1]
 
-    archived = options[:archived] || args[4] || false
+    # Supports both spec constructor styles:
+    # Movie.new(1, 'Metropolis', '2010-01-01', true, ...)
+    # Movie.new(7, 'Nosferatu', '2000-01-01', true, archived: true)
 
-    super(publish_date, archived:)
+    @publish_date = args[2]
+    @silent = args[3] || false
 
-    @id = id
-    @title = title
-    @silent = silent
+    super(@publish_date, @id, archived:)
 
-    @genre_id = options[:genre_id] || args[0]
-    @author_id = options[:author_id] || args[1]
-    @source_id = options[:source_id] || args[2]
-    @label_id = options[:label_id] || args[3]
+    @director = nil
+    @genre_id = args[4]
+    @author_id = args[5]
+    @source_id = args[6]
+    @label_id = args[7]
   end
 
   def can_be_archived?
     super || @silent
   end
 
-  def display
-    status = @archived ? '[ARCHIVED]' : '[ACTIVE]'
-    "#{status} ID: #{@id} | #{@title}"
-  end
-
-  def to_h
-    super.merge(
-      id: @id,
-      title: @title,
-      silent: @silent,
-      genre_id: @genre_id,
-      author_id: @author_id,
-      source_id: @source_id,
-      label_id: @label_id
+  def self.from_h(hash)
+    movie = new(
+      hash['id'],
+      hash['title'],
+      hash['publish_date'],
+      hash['silent'],
+      hash['genre_id'],
+      hash['author_id'],
+      hash['source_id'],
+      hash['label_id'],
+      archived: hash['archived']
     )
-  end
 
-  def self.from_h(data)
-    new(
-      data['id'] || data[:id],
-      data['title'] || data[:title],
-      data['publish_date'] || data[:publish_date],
-      data['silent'] || data[:silent],
-      {
-        genre_id: data['genre_id'] || data[:genre_id],
-        author_id: data['author_id'] || data[:author_id],
-        source_id: data['source_id'] || data[:source_id],
-        label_id: data['label_id'] || data[:label_id],
-        archived: data['archived'] || false
-      }
-    )
+    movie.director = hash['director']
+    movie
   end
 end
