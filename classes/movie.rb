@@ -5,7 +5,7 @@ class Movie < Item
   attr_accessor :title, :director, :silent,
                 :genre_id, :author_id, :source_id, :label_id
 
-  def initialize(*args, silent: false, archived: false, **_kwargs)
+  def initialize(*args, silent: false, archived: false, **kwargs)
     id = args[0]
     title = args[1]
     publish_date = args[2]
@@ -24,7 +24,7 @@ class Movie < Item
     @author_id = author_id
     @source_id = source_id
     @label_id = label_id
-    @director = _kwargs[:director]
+    @director = kwargs[:director]
   end
 
   def can_be_archived?

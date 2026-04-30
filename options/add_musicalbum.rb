@@ -18,11 +18,11 @@ module AddMusicAlbum
     end
 
     puts 'Enter artist name:'
-    artist = gets.chomp
+    gets.chomp
 
     on_spotify = read_spotify_input
 
-    album = MusicAlbum.new(publish_date: publish_date, on_spotify: on_spotify)
+    album = MusicAlbum.new(publish_date:, on_spotify:)
     @music_albums << album
 
     choose_label(album)

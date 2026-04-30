@@ -19,7 +19,7 @@ module AddMovie
     print 'Silent? [Y/N]: '
     silent = gets.chomp.downcase == 'y'
 
-    movie = Movie.new(nil, title, director, publish_date, silent: silent)
+    movie = Movie.new(nil, title, director, publish_date, silent:)
     @movies << movie
 
     choose_label(movie)

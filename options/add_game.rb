@@ -35,7 +35,7 @@ module AddGame
     puts "Game added successfully!\n"
   end
 
-  def date_prompt(date)
+  def date_prompt(_date)
     loop do
       input = gets.chomp
       break if input =~ /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/

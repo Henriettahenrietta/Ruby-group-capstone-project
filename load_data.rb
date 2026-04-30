@@ -12,6 +12,12 @@ module LoadData
     load_labels
   end
 
+  def assign_associations(obj, data)
+    obj.label = @labels.find { |l| l.id == data['label']['id'] } if data['label'] && data['label']['id']
+    obj.genre = @genres.find { |g| g.id == data['genre']['id'] } if data['genre'] && data['genre']['id']
+    obj.author = @authors.find { |a| a.id == data['author']['id'] } if data['author'] && data['author']['id']
+  end
+
   def load_authors
     return unless File.exist?('./storage/authors.json')
 
@@ -33,9 +39,7 @@ module LoadData
     @games = games_json.map do |game|
       game_obj = Game.new(game['multiplayer'], game['last_played_at'], game['publish_date'],
                           archived: game['archived'])
-      game_obj.label = @labels.find { |l| l.id == game['label']['id'] } if game['label'] && game['label']['id']
-      game_obj.genre = @genres.find { |g| g.id == game['genre']['id'] } if game['genre'] && game['genre']['id']
-      game_obj.author = @authors.find { |a| a.id == game['author']['id'] } if game['author'] && game['author']['id']
+      assign_associations(game_obj, game)
 
       game_obj
     end
@@ -51,9 +55,7 @@ module LoadData
         on_spotify: album['on_spotify'] || false,
         archived: album['archived'] || false
       )
-      album_obj.genre = @genres.find { |g| g.id == album['genre']['id'] } if album['genre'] && album['genre']['id']
-      album_obj.label = @labels.find { |l| l.id == album['label']['id'] } if album['label'] && album['label']['id']
-      album_obj.author = @authors.find { |a| a.id == album['author']['id'] } if album['author'] && album['author']['id']
+      assign_associations(album_obj, album)
 
       album_obj
     end
@@ -74,9 +76,7 @@ module LoadData
     books_json = JSON.parse(File.read('./storage/books.json'))
     @books = books_json.map do |book|
       book_obj = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
-      book_obj.genre = @genres.find { |g| g.id == book['genre']['id'] } if book['genre'] && book['genre']['id']
-      book_obj.label = @labels.find { |l| l.id == book['label']['id'] } if book['label'] && book['label']['id']
-      book_obj.author = @authors.find { |a| a.id == book['author']['id'] } if book['author'] && book['author']['id']
+      assign_associations(book_obj, book)
       book_obj
     end
   end

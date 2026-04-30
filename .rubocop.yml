@@ -2,6 +2,7 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.3
   DisplayCopNames: true
+  SuggestExtensions: false
 
   Exclude:
     - "bin/**/*"
