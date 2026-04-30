@@ -1,23 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'item'
-
 class Source
-  attr_accessor :id, :name, :items
+  attr_accessor :id, :name
 
   def initialize(id, name)
     @id = id
     @name = name
-    @items = []
-  end
-
-  def add_item(item)
-    @items << item
-    item.source = self
-  end
-
-  def display
-    "ID: #{@id} | Name: #{@name} | Items: #{@items.length}"
   end
 
   def to_h

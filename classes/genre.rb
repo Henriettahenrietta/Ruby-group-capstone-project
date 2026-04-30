@@ -1,11 +1,9 @@
-require_relative 'item'
-
 class Genre
   attr_accessor :name, :items
   attr_reader :id
 
-  def initialize(name, id = Random.rand(1..1000))
-    @id = id
+  def initialize(name, id = nil)
+    @id = id || rand(1..1000)
     @name = name
     @items = []
   end

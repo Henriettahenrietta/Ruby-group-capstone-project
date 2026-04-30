@@ -1,1 +1,17 @@
+<<<<<<< HEAD
+[
+  {
+    "id": 1,
+    "publish_date": "2010-01-01",
+    "archived": false,
+    "title": "Movie One",
+    "silent": false,
+    "genre_id": 1,
+    "author_id": null,
+    "source_id": null,
+    "label_id": null
+  }
+]
+=======
 []
+>>>>>>> 66b720bbb0994a35d4bce1cbed70b0b079c6e9fc

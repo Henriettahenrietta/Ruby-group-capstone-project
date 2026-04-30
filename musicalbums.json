@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "publish_date": "2010-01-01",
+    "archived": false,
+    "title": "Album One",
+    "on_spotify": true,
+    "genre_id": 1,
+    "author_id": null,
+    "source_id": null
+  }
+]

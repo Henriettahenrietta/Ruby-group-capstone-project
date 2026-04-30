@@ -2,6 +2,7 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.3
   DisplayCopNames: true
+  SuggestExtensions: false
 
   Exclude:
     - "bin/**/*"
@@ -73,3 +74,11 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: false
+
+Style/OptionalBooleanParameter:
+  Exclude:
+    - 'classes/music_album.rb'
+
+Metrics/ParameterLists:
+  Exclude:
+    - 'classes/game.rb'

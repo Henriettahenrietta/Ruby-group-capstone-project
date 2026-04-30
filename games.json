@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "publish_date": "2010-01-01",
+    "archived": false,
+    "title": "Game One",
+    "multiplayer": false,
+    "last_played_at": null,
+    "genre_id": 1,
+    "author_id": 1,
+    "source_id": null,
+    "label_id": null
+  }
+]

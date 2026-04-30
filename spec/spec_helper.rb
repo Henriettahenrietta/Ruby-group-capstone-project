@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec_helper.rb - RSpec configuration file
 # This file sets up RSpec with common configurations
 

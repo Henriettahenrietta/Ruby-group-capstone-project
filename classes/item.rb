@@ -1,28 +1,16 @@
-require 'date'
-
 class Item
-  attr_accessor :publish_date
-  attr_reader :id, :archived, :label, :author, :genre
+  attr_accessor :genre, :author, :label, :source, :archived
+  attr_reader :id, :publish_date
 
-  def initialize(publish_date, archived: false)
-    @publish_date = parse_publish_date(publish_date)
+  def initialize(publish_date, id: rand(1..1000), archived: false)
+    @id = id
+    @publish_date = parse_date(publish_date)
     @archived = archived
-    @id = Random.rand(1...1000)
-  end
 
-  def genre=(genre)
-    @genre = genre
-    genre.items << self unless genre.nil? || genre.items.include?(self)
-  end
-
-  def author=(author)
-    @author = author
-    author.items << self unless author.nil? || author.items.include?(self)
-  end
-
-  def label=(label)
-    @label = label
-    label.items << self unless label.nil? || label.items.include?(self)
+    @genre = nil
+    @author = nil
+    @label = nil
+    @source = nil
   end
 
   def move_to_archive
@@ -31,18 +19,18 @@ class Item
 
   private
 
-  def parse_publish_date(value)
-    return value if value.is_a?(Date)
-    return Date.parse(value) if value.is_a?(String)
+  def can_be_archived?
+    return false unless @publish_date
 
-    nil
-  rescue Date::Error
-    nil
+    @publish_date < (Date.today << 120)
   end
 
-  def can_be_archived?
-    return false if @publish_date.nil?
+  def parse_date(date)
+    return date if date.is_a?(Date)
+    return Date.parse(date) if date.is_a?(String)
 
-    (Date.today.year - @publish_date.year) > 10
+    nil
+  rescue ArgumentError
+    nil
   end
 end

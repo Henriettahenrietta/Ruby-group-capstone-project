@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "publish_date": "2010-04-21",
+    "archived": true,
+    "title": "Bible",
+    "author": "Mathew",
+    "publisher": "Hen",
+    "cover_state": "good",
+    "label_id": null
+  },
+  {
+    "id": 2,
+    "publish_date": "2024-04-3",
+    "archived": false,
+    "title": "Digital",
+    "author": "Isange",
+    "publisher": "Henrietta",
+    "cover_state": "acceptable",
+    "label_id": 2
+  }
+]

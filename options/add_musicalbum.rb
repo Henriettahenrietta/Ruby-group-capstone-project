@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require './options/add_props'
-require './classes/musicalbum'
+require './classes/music_album'
 
 module AddMusicAlbum
   include AddProps
@@ -7,25 +9,27 @@ module AddMusicAlbum
   def add_music_album
     puts 'Enter publish date (yyyy-mm-dd):'
 
+    publish_date = nil
     loop do
-      @publish_date = gets.chomp
-      break if @publish_date =~ /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+      publish_date = gets.chomp
+      break if publish_date =~ /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
 
-      puts "Provide the date in format 'yyyy-mm-dd'"
+      puts 'Provide the date in format yyyy-mm-dd'
     end
 
     puts 'Enter artist name:'
-    @artist = gets.chomp
+    gets.chomp
 
-    @on_spotify = read_spotify_input
-    album = MusicAlbum.new(@artist, @publish_date, @on_spotify)
+    on_spotify = read_spotify_input
+
+    album = MusicAlbum.new(publish_date:, on_spotify:)
     @music_albums << album
 
     choose_label(album)
     choose_genre(album)
     choose_author(album)
 
-    puts "Album added successfully!\n"
+    puts 'Album added successfully!'
   end
 
   def read_spotify_input
