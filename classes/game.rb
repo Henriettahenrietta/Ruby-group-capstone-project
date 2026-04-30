@@ -1,29 +1,35 @@
 # classes/game.rb
 require_relative 'item'
+require 'date'
 
 class Game < Item
-  attr_accessor :title, :author_id, :genre_id, :multiplayer, :last_played_at
+  attr_accessor :multiplayer, :last_played_at
 
-  def initialize(multiplayer, last_played_at, publish_date, id = rand(1..1000), archived: false)
-    super(publish_date, id, archived:)
+  def initialize(multiplayer, last_played_at, publish_date, id: rand(1..1000), archived: false)
+    super(publish_date, id:, archived:)
 
     @multiplayer = multiplayer
-    @last_played_at = last_played_at
-
-    @title = nil
-    @author_id = nil
-    @genre_id = nil
+    @last_played_at = parse_date(last_played_at)
   end
 
   def can_be_archived?
-    super && older_than_2_years?
+    return false if archived
+    return false if @last_played_at.nil?
+
+    older_than_2_years = @last_played_at < (Date.today << 24)
+
+    super && older_than_2_years
   end
 
   private
 
-  def older_than_2_years?
-    return false unless @last_played_at
+  def parse_date(date)
+    return nil if date.nil?
+    return date if date.is_a?(Date)
+    return Date.parse(date) if date.is_a?(String)
 
-    Date.parse(@last_played_at) < Date.today << 24
+    nil
+  rescue ArgumentError
+    nil
   end
 end

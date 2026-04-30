@@ -23,18 +23,14 @@ module StoreData
 
   def save_games
     games_data = @games.map do |game|
-      label_id = game.label&.id
-
       {
         'multiplayer' => game.multiplayer,
         'last_played_at' => game.last_played_at.to_s,
         'publish_date' => game.publish_date.to_s,
         'archived' => game.archived,
-        'label' => {
-          'id' => label_id, # Handle nil label gracefully
-          'title' => game.label&.title, # Access label title safely
-          'color' => game.label&.color # Access label color safely
-        }
+        'label' => game.label.nil? ? nil : { 'id' => game.label.id, 'title' => game.label.title, 'color' => game.label.color },
+        'genre' => game.genre.nil? ? nil : { 'id' => game.genre.id, 'name' => game.genre.name },
+        'author' => game.author.nil? ? nil : { 'id' => game.author.id, 'first_name' => game.author.first_name, 'last_name' => game.author.last_name }
       }
     end
 
@@ -46,14 +42,12 @@ module StoreData
   def save_albums
     all_music_albums = @music_albums.map do |album|
       {
-        artist: album.artist,
         publish_date: album.publish_date,
         on_spotify: album.on_spotify,
-        genre_name: album.genre&.name,
         archived: album.archived,
-        label: album.label.nil? ? nil : { id: album.label.id },
-        genre: album.genre.nil? ? nil : { id: album.genre.id },
-        author: album.author.nil? ? nil : { id: album.author.id }
+        label: album.label.nil? ? nil : { id: album.label.id, title: album.label.title, color: album.label.color },
+        genre: album.genre.nil? ? nil : { id: album.genre.id, name: album.genre.name },
+        author: album.author.nil? ? nil : { id: album.author.id, first_name: album.author.first_name, last_name: album.author.last_name }
       }
     end
     File.write('./storage/musicalbum.json', JSON.pretty_generate(all_music_albums))

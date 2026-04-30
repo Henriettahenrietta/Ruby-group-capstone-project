@@ -18,5 +18,10 @@
     "id": 863,
     "title": "ABC game",
     "color": "blue"
+  },
+  {
+    "id": 106,
+    "title": "MyLabel",
+    "color": "Blue"
   }
 ]

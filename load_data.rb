@@ -33,7 +33,9 @@ module LoadData
     @games = games_json.map do |game|
       game_obj = Game.new(game['multiplayer'], game['last_played_at'], game['publish_date'],
                           archived: game['archived'])
-      game_obj.label = @labels.find { |l| l.id == game['label']['id'] }
+      game_obj.label = @labels.find { |l| l.id == game['label']['id'] } if game['label'] && game['label']['id']
+      game_obj.genre = @genres.find { |g| g.id == game['genre']['id'] } if game['genre'] && game['genre']['id']
+      game_obj.author = @authors.find { |a| a.id == game['author']['id'] } if game['author'] && game['author']['id']
 
       game_obj
     end
@@ -45,14 +47,13 @@ module LoadData
     musicalbums_loaded = JSON.parse(File.read('./storage/musicalbum.json'))
     @music_albums = musicalbums_loaded.map do |album|
       album_obj = MusicAlbum.new(
-        album['artist'] || 'Unknown',
-        album['publish_date'],
-        album['on_spotify'],
-        archived: album['archived']
+        publish_date: album['publish_date'],
+        on_spotify: album['on_spotify'] || false,
+        archived: album['archived'] || false
       )
-      album_obj.genre = @genres.find { |g| g.id == album['genre']['id'] } if album['genre']
-      album_obj.label = @labels.find { |l| l.id == album['label']['id'] } if album['label']
-      album_obj.author = @authors.find { |a| a.id == album['author']['id'] } if album['author']
+      album_obj.genre = @genres.find { |g| g.id == album['genre']['id'] } if album['genre'] && album['genre']['id']
+      album_obj.label = @labels.find { |l| l.id == album['label']['id'] } if album['label'] && album['label']['id']
+      album_obj.author = @authors.find { |a| a.id == album['author']['id'] } if album['author'] && album['author']['id']
 
       album_obj
     end
@@ -73,9 +74,9 @@ module LoadData
     books_json = JSON.parse(File.read('./storage/books.json'))
     @books = books_json.map do |book|
       book_obj = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
-      book_obj.genre = @genres.find { |g| g.id == book['genre']['id'] } if book['genre']
-      book_obj.label = @labels.find { |l| l.id == book['label']['id'] } if book['label']
-      book_obj.author = @authors.find { |a| a.id == book['author']['id'] } if book['author']
+      book_obj.genre = @genres.find { |g| g.id == book['genre']['id'] } if book['genre'] && book['genre']['id']
+      book_obj.label = @labels.find { |l| l.id == book['label']['id'] } if book['label'] && book['label']['id']
+      book_obj.author = @authors.find { |a| a.id == book['author']['id'] } if book['author'] && book['author']['id']
       book_obj
     end
   end

@@ -1,5 +1,5 @@
 require 'date'
-require './classes/musicalbum'
+require './classes/music_album'
 
 RSpec.describe MusicAlbum do
   describe '#initialize' do

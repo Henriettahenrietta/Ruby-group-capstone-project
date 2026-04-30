@@ -1,11 +1,8 @@
-# classes/item.rb
-require 'date'
-
 class Item
   attr_accessor :genre, :author, :label, :source, :archived
   attr_reader :id, :publish_date
 
-  def initialize(publish_date, id = rand(1..1000), archived: false)
+  def initialize(publish_date, id: rand(1..1000), archived: false)
     @id = id
     @publish_date = parse_date(publish_date)
     @archived = archived
@@ -25,7 +22,7 @@ class Item
   def can_be_archived?
     return false unless @publish_date
 
-    @publish_date < Date.today << 120 # 10 years
+    @publish_date < (Date.today << 120)
   end
 
   def parse_date(date)
